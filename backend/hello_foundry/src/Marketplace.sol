@@ -48,6 +48,46 @@ contract marketPlace is Ownable, IERC721 {
         _security[_itemId] = block.number;
         _;
     }
-        
+
+    //@dev events
+    event listed(uint256 id, address nft, uint256 tokenId, uint256 price, address seller);
+
+
+    //@dev functions
+
+    function listNFT(address _nft, 
+    uint256 _tokenId,
+    uint256 _price,
+    string memory _name,
+    string memory _description,
+    string memory _image) public {
+        require(_price > 0, "price must be greater than 0");
+
+        IERC721 nft = IERC721(_nft);
+        if (nft.ownerOf(_tokenId) == msg.sender) {
+            nft.safeTransferFrom(msg.sender, address(this), _tokenId);
+            itemCount++;
+            items[itemCount] = item(
+                itemCount,
+                _nft,
+                _tokenId,
+                payable(msg.sender),
+                false,
+                _price,
+                _name,
+                _description,
+                _image
+            );
+        emit listed(itemCount, address(_nft), _tokenId, _price, msg.sender);
+        itemCount++;
+        }else {
+            revert("you are not the owner of this NFT");
+        }
+            
+        }
+
+    
     }
+        
+    
 
