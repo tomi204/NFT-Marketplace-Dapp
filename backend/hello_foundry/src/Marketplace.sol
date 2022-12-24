@@ -83,8 +83,6 @@ contract marketPlace is ReentrancyGuard {
              if (nft.getApproved(_tokenId) != address(this)) {
             revert NotApprovedForMarketplace();
         }
-
-            nft.safeTransferFrom(msg.sender, address(this), _tokenId); // transfer the NFT to the contract
             itemCount++; // increment the item count
             items[itemCount] = item( // add the item to the items mapping
                 itemCount,
@@ -141,5 +139,13 @@ contract marketPlace is ReentrancyGuard {
     function withdrawFunds() public onlyOwner {
         payable(owner).transfer(address(this).balance);
     }
+    
+    //@dev get items for front end function
 
-}
+    function getItems(uint256 _itemId) public view returns (item memory) {
+        Item storage itemsList = items[_itemId];// get specific item from the items mapping
+        return itemsList; // return the item
+    }
+    
+    }
+
