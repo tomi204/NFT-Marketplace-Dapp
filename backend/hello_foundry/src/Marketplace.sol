@@ -11,6 +11,12 @@ contract marketPlace is Ownable, IERC721 {
     uint64 public immutable fee; //marketplace fee
     uint256 public itemCount; // item count
 
+    //@dev constructor
+    constructor(uint64 _fee) {
+        owner = payable(msg.sender);
+        fee = _fee;
+    }
+
     //@dev struct of items
 
     struct item{
@@ -24,10 +30,23 @@ contract marketPlace is Ownable, IERC721 {
         string description;
         string image;
     }
+     
+     //@dev mappings
+    mapping(uint256 => item) public items;// item id to item
+    mapping(uint256 => uint256) _security; // security front running
+    
 
-    constructor(uint64 _fee) {
-        owner = payable(msg.sender);
-        fee = _fee;
+    //@modifiers
+
+    modifier securityFrontRunning(uint256 _itemId){
+     item storage Item = items[_itemId];
+        require(
+            _security[_itemId] == 0 || _security[_itemId] > block.number,
+            "error security"
+        );
+
+        _security[_itemId] = block.number;
+        _;
     }
         
     }
