@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
@@ -78,11 +77,12 @@ contract marketPlace is ReentrancyGuard {
     ) public nonReentrant {
         require(_price > 0, "price must be greater than 0");
         IERC721 nft = IERC721(_nft); // cast address to IERC721
-        if (nft.ownerOf(_tokenId) == msg.sender) {            // check if the msg.sender is the owner of the NFT
+        if (nft.ownerOf(_tokenId) == msg.sender) {
+            // check if the msg.sender is the owner of the NFT
 
-             if (nft.getApproved(_tokenId) != address(this)) {
-            revert NotApprovedForMarketplace();
-        }
+            if (nft.getApproved(_tokenId) != address(this)) {
+                revert NotApprovedForMarketplace();
+            }
             itemCount++; // increment the item count
             items[itemCount] = item( // add the item to the items mapping
                 itemCount,
@@ -124,7 +124,11 @@ contract marketPlace is ReentrancyGuard {
 
     //@dev cancel function
 
-    function cancelSale(uint256 _itemId) public nonReentrant securityFrontRunning(_itemId) {
+    function cancelSale(uint256 _itemId)
+        public
+        nonReentrant
+        securityFrontRunning(_itemId)
+    {
         item storage Item = items[_itemId]; // get the item from the items mapping
         require(Item.sold == false, "item already sold"); // check if the item is already sold
         require(Item.seller == msg.sender, "you are not the seller"); // check if the msg.sender is the seller
@@ -139,13 +143,11 @@ contract marketPlace is ReentrancyGuard {
     function withdrawFunds() public onlyOwner {
         payable(owner).transfer(address(this).balance);
     }
-    
+
     //@dev get items for front end function
 
     function getItems(uint256 _itemId) public view returns (item memory) {
-        Item storage itemsList = items[_itemId];// get specific item from the items mapping
+        item storage itemsList = items[_itemId]; // get specific item from the items mapping
         return itemsList; // return the item
     }
-    
-    }
-
+}
