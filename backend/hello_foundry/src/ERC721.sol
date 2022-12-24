@@ -4,5 +4,19 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "";
 
 contract NFT is ERC721{
+    uint256 public tokenCounter;
+    
+    constructor() ERC721("Bored ape 204", "Bored Ape #204") {}
+    
+      function mint() public
+    {
+        tokenCounter  += 1;
+        _mint(msg.sender, token_count);
+    }
+    
+    function _baseURI() internal pure override returns (string memory) {
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        return "https://ipfs.io/ipfs//QmdRpbUC8TjJ1b9tZWPRxBvbCsgJisWEuN4dcXFW4Mvrh8";
+    }
 
 }
