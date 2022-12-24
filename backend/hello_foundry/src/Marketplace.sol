@@ -123,4 +123,23 @@ contract marketPlace is ReentrancyGuard {
         delete _security[_itemId]; // delete the security front running
         delete items[_itemId]; // delete the item from the items mapping
     }
+
+    //@dev cancel function
+
+    function cancelSale(uint256 _itemId) public nonReentrant securityFrontRunning(_itemId) {
+        item storage Item = items[_itemId]; // get the item from the items mapping
+        require(Item.sold == false, "item already sold"); // check if the item is already sold
+        require(Item.seller == msg.sender, "you are not the seller"); // check if the msg.sender is the seller
+        IERC721 nft = IERC721(Item.nft); // cast the item nft address to IERC721
+        nft.safeTransferFrom(address(this), msg.sender, Item.tokenId); // transfer the NFT to the seller
+        delete _security[_itemId]; // delete the security front running
+        delete items[_itemId]; // delete the item from the items mapping
+    }
+
+    //@dev withdraw founds function
+
+    function withdrawFunds() public onlyOwner {
+        payable(owner).transfer(address(this).balance);
+    }
+
 }
