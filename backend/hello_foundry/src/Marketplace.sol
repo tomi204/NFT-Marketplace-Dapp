@@ -4,6 +4,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
+//@Dev errors
+error NotApprovedForMarketplace();
+
 contract marketPlace is ReentrancyGuard {
     //@dev state variables
     address payable public immutable owner; //owner of the contract
@@ -74,10 +77,13 @@ contract marketPlace is ReentrancyGuard {
         string memory _image
     ) public nonReentrant {
         require(_price > 0, "price must be greater than 0");
-
         IERC721 nft = IERC721(_nft); // cast address to IERC721
-        if (nft.ownerOf(_tokenId) == msg.sender) {
-            // check if the msg.sender is the owner of the NFT
+        if (nft.ownerOf(_tokenId) == msg.sender) {            // check if the msg.sender is the owner of the NFT
+
+             if (nft.getApproved(_tokenId) != address(this)) {
+            revert NotApprovedForMarketplace();
+        }
+
             nft.safeTransferFrom(msg.sender, address(this), _tokenId); // transfer the NFT to the contract
             itemCount++; // increment the item count
             items[itemCount] = item( // add the item to the items mapping
