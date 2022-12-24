@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "";
 
 contract NFT is ERC721{
     uint256 public tokenCounter;
@@ -11,11 +10,10 @@ contract NFT is ERC721{
       function mint() public
     {
         tokenCounter  += 1;
-        _mint(msg.sender, token_count);
+        _mint(msg.sender, tokenCounter);
     }
     
     function _baseURI() internal pure override returns (string memory) {
-        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return "https://ipfs.io/ipfs//QmdRpbUC8TjJ1b9tZWPRxBvbCsgJisWEuN4dcXFW4Mvrh8";
     }
 

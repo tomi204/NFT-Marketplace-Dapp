@@ -112,8 +112,11 @@ contract marketPlace is ReentrancyGuard {
         require(Item.sold == false, "item already sold"); // check if the item is already sold
         require(msg.value == (Item.price * fee) / 100, "insufficient funds"); // check if the msg.value is greater than or equal to the item price
         IERC721 nft = IERC721(Item.nft); // cast the item nft address to IERC721
-        nft.safeTransferFrom(address(this), msg.sender, Item.tokenId); // transfer the NFT to the buyer
-        Item.sold = true; // set the item sold state to true
+        IERC721(Item.nft).safeTransferFrom(
+                Item.seller,
+                msg.sender,
+                Item.tokenId
+            ); // trasnfer the nft to the buyer        Item.sold = true; // set the item sold state to true
         uint256 feeAmount = (Item.price * fee) / 100; // calculate the fee amount
         uint256 sellerAmount = Item.price - feeAmount; // calculate the seller amount
         payable(owner).transfer(feeAmount); // transfer the fee amount to the owner
@@ -132,9 +135,6 @@ contract marketPlace is ReentrancyGuard {
         item storage Item = items[_itemId]; // get the item from the items mapping
         require(Item.sold == false, "item already sold"); // check if the item is already sold
         require(Item.seller == msg.sender, "you are not the seller"); // check if the msg.sender is the seller
-        IERC721 nft = IERC721(Item.nft); // cast the item nft address to IERC721
-        nft.safeTransferFrom(address(this), msg.sender, Item.tokenId); // transfer the NFT to the seller
-        delete _security[_itemId]; // delete the security front running
         delete items[_itemId]; // delete the item from the items mapping
     }
 
