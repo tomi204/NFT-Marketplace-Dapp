@@ -4,8 +4,10 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Navbar from "./../components/navbar/Navbar";
 import Footer from "./../components/footer/Footer";
+import { GetAllItems } from "./../components/api/ListedTokens";
 
 const Home: NextPage = () => {
+  const { items } = GetAllItems();
   return (
     <div className={styles.container}>
       <Head>
