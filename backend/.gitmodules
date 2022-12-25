@@ -1,5 +1,5 @@
-[submodule "backend/lib/openzeppelin-contracts"]
-	path = backend/lib/openzeppelin-contracts
+[submodule "lib/openzeppelin-contracts"]
+	path = lib/openzeppelin-contracts
 	url = https://github.com/Openzeppelin/openzeppelin-contracts
 [submodule "lib\\openzeppelin-contracts"]
 	branch = v4.8.0

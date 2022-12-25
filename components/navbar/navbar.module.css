@@ -3,6 +3,12 @@
   flex: 1;
   padding: 2rem 0;
   border-bottom: 1px solid #eaeaea;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+.link {
+  color: #0d76fc;
+  text-decoration: none;
+  font-size: medium;
+  font-weight: 700;
 }
