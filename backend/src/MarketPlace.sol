@@ -110,7 +110,7 @@ contract marketPlace is ReentrancyGuard {
     {
         item storage Item = items[_itemId]; // get the item from the items mapping
         require(Item.sold == false, "item already sold"); // check if the item is already sold
-        require(msg.value == (Item.price * fee) / 100, "insufficient funds"); // check if the msg.value is greater than or equal to the item price
+        require(msg.value == Item.price, "insufficient funds"); // check if the msg.value is greater than or equal to the item price
         IERC721(Item.nft).safeTransferFrom(
                 Item.seller,
                 msg.sender,
