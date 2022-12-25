@@ -12,6 +12,7 @@
 # foundry
 /.next/
 /out/
+/lib/
 
 # production
 /build
