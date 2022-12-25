@@ -1,7 +1,11 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
-import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
+import {
+  RainbowKitProvider,
+  getDefaultWallets,
+  connectorsForWallets,
+} from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum, goerli } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
@@ -31,10 +35,19 @@ const { chains, provider, webSocketProvider } = configureChains(
   ]
 );
 
-const { connectors } = getDefaultWallets({
-  appName: "RainbowKit + wagmi + Next.js",
-  chains,
-});
+const connectors = connectorsForWallets([
+  {
+    groupName: "Recommended",
+    wallets: [
+      injectedWallet({ chains }),
+      rainbowWallet({ chains }),
+      walletConnectWallet({ chains }),
+      metaMaskWallet({ chains }),
+      braveWallet({ chains }),
+      trustWallet({ chains }),
+    ],
+  },
+]);
 
 const wagmiClient = createClient({
   autoConnect: true,

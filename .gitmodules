@@ -3,3 +3,5 @@
 	url = https://github.com/Openzeppelin/openzeppelin-contracts
 [submodule "lib\\openzeppelin-contracts"]
 	branch = v4.8.0
+[submodule "lib/openzeppelin-contracts"]
+	branch = v4.8.0
