@@ -39,12 +39,19 @@ const connectors = connectorsForWallets([
   {
     groupName: "Recommended",
     wallets: [
-      injectedWallet({ chains }),
-      rainbowWallet({ chains }),
-      walletConnectWallet({ chains }),
       metaMaskWallet({ chains }),
-      braveWallet({ chains }),
+      injectedWallet({ chains }),
+      walletConnectWallet({ chains }),
       trustWallet({ chains }),
+      ledgerWallet({ chains }),
+    ],
+  },
+  {
+    groupName: "Others",
+    wallets: [
+      coinbaseWallet({ chains, appName: "My RainbowKit App" }),
+      rainbowWallet({ chains }),
+      braveWallet({ chains }),
     ],
   },
 ]);
@@ -60,7 +67,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
       <ChakraProvider>
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider coolMode chains={chains}>
           <Component {...pageProps} />
         </RainbowKitProvider>
       </ChakraProvider>

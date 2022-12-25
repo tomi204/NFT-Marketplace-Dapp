@@ -1,8 +1,8 @@
 .mainDiv {
   display: flex;
   flex: 1;
-  padding: 2rem 0;
-  border-bottom: 1px solid #eaeaea;
+  padding: 1rem 0;
+  border-bottom: 3px solid #eaeaea;
   justify-content: space-around;
   align-items: center;
 }

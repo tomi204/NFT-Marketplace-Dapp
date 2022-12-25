@@ -12,6 +12,11 @@ const Navbar = () => {
       </li>
       <li>
         <Link href="/">
+          <a className={styles.link}>Explore </a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/">
           <a className={styles.link}>Sell NFT</a>
         </Link>
       </li>
