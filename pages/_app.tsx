@@ -7,6 +7,16 @@ import { mainnet, polygon, optimism, arbitrum, goerli } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { ChakraProvider } from "@chakra-ui/react";
+import {
+  injectedWallet,
+  rainbowWallet,
+  walletConnectWallet,
+  braveWallet,
+  metaMaskWallet,
+  coinbaseWallet,
+  ledgerWallet,
+  trustWallet,
+} from "@rainbow-me/rainbowkit/wallets";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [
