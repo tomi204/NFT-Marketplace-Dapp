@@ -5,7 +5,6 @@ import {
   useContractRead,
 } from "wagmi";
 import { BigNumber, ethers } from "ethers";
-import { useIsMounted } from "../../utils/hooks/useIsMounted";
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useMemo } from "react";
@@ -92,7 +91,7 @@ export function GetAllItems() {
         return [
           {
             ...mlootContractConfig,
-            functionName: "listNFT",
+            functionName: "getItems",
             args: [BigNumber.from(index)],
           },
         ];
@@ -108,12 +107,12 @@ export function GetAllItems() {
           id: item[0]?.toNumber(),
           nft: item[1],
           tokenId: item[2]?.toString(),
-          price: item[3]?.toNumber(),
-          seller: item[4],
-          sold: item[5],
-          tokenURI: item[6],
-          name: item[7],
-          desc: item[8],
+          seller: item[3],
+          sold: item[4],
+          price: item[5]?.toNumber(),
+          name: item[6],
+          desc: item[7],
+          tokenURI: item[8],
         };
       }
       return itemData;
