@@ -1,13 +1,12 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Navbar from "./../components/navbar/Navbar";
 import Footer from "./../components/footer/Footer";
-import { GetAllItems } from "./../components/api/ListedTokens";
+import { useIsMounted } from "./../components/utils/mounted";
 
 const Home: NextPage = () => {
-  const { items } = GetAllItems();
+  const isMounted = useIsMounted();
   return (
     <div className={styles.container}>
       <Head>
