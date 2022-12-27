@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import { useMemo } from "react";
 import contractAdress from "./ContractAdress";
 
-const itemData = {};
 const mlootContractConfig = {
   address: contractAdress,
   chainId: 5,
@@ -102,6 +101,9 @@ export function GetAllItems() {
   //get items from data and return in a new array
   const result = data?.pages?.map((page) => {
     return page?.map((item) => {
+      // Cannot read properties of null (reading '0')
+      //fix error cannot read properties of null (reading '0')
+
       if (item?.id != 0) {
         itemData = {
           id: item[0]?.toNumber(),
