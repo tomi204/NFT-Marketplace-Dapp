@@ -23,8 +23,8 @@ import contractAdress from "./ContractAdress";
 export const Sell = () => {
   const { address } = useAccount();
   const { isConnected } = useAccount();
-  const [number, setNumber] = useState("0");
-  const [price, setPrice] = useState("0");
+  const [number, setNumber] = useState(0);
+  const [price, setPrice] = useState(0);
   const [nft, setNft] = useState("0x0000000000000000000000000000000000000000");
   const [tokenURI, setTokenURI] = useState("");
   const [name, setName] = useState("");
@@ -110,106 +110,111 @@ export const Sell = () => {
             alignItems: "center",
           }}
         >
-          <h1>Sell NFT</h1>
-          <br />
-          {/* address form */}
-          <InputGroup size="sm" className={styles.input}>
-            <InputLeftElement
-              pointerEvents="none"
-              color="gray.300"
-              fontSize="1.2em"
+          <div className={styles.divForm}>
+            <h1>Sell NFT</h1>
+            <br />
+            {/* address form */}
+            <InputGroup size="sm" className={styles.input}>
+              <InputLeftElement
+                pointerEvents="none"
+                color="gray.300"
+                fontSize="1.2em"
+              ></InputLeftElement>
+              <Input
+                placeholder="0x0000000000000000000000000000000000"
+                min={0}
+                value={nft}
+                defaultValue={nft}
+                onChange={handleChangeAddress}
+              />
+              <InputRightElement>
+                <CheckIcon color="green.500" />
+              </InputRightElement>
+            </InputGroup>
+            {/* price form*/}
+            <br />
+            <InputGroup size="sm" className={styles.input}>
+              <InputLeftElement
+                pointerEvents="none"
+                color="gray.300"
+                fontSize="1.2em"
+              >
+                <FaEthereum />
+              </InputLeftElement>
+              <Input
+                type={"number"}
+                placeholder="Enter amount"
+                value={price}
+                defaultValue={1}
+                onChange={handleChangePrice}
+              />
+              <InputRightElement>
+                <CheckIcon color="green.500" />
+              </InputRightElement>
+            </InputGroup>
+            {/* token id */}
+            <br />
+            <InputGroup size="sm" className={styles.input}>
+              <NumberInput
+                size="xs"
+                maxW={16}
+                type={"number"}
+                defaultValue={15}
+                value={number}
+                onChange={handleChangeToken}
+                min={10}
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </InputGroup>
+            {/* https form */}
+            <br />
+            <InputGroup size="sm" className={styles.input}>
+              <InputLeftAddon>https://</InputLeftAddon>
+              <Input
+                placeholder="ipfs.io"
+                onChange={handleChangeURI}
+                value={tokenURI}
+              />
+              <InputRightAddon>.com</InputRightAddon>
+            </InputGroup>
+            <br />
+            {/* name form */}
+            <InputGroup size="sm" className={styles.input}>
+              <Input
+                placeholder="name"
+                value={name}
+                onChange={handleChangeName}
+              />
+            </InputGroup>
+            <br />
+            <InputGroup size="sm">
+              <Input
+                placeholder="desc"
+                value={desc}
+                onChange={handleChangeDesc}
+              />
+            </InputGroup>
+            <br />
+            <Button
+              onClick={() => write?.()}
+              style={{
+                borderRadius: 50,
+                backgroundColor: "black",
+                color: "white",
+                width: "50%",
+                height: "50px",
+                fontSize: "20px",
+                cursor: "pointer",
+              }}
             >
-              NFT Address
-            </InputLeftElement>
-            <Input
-              placeholder="0x0000000000000000000000000000000000"
-              min={0}
-              value={nft}
-              defaultValue={nft}
-              onChange={handleChangeAddress}
-            />
-            <InputRightElement>
-              <CheckIcon color="green.500" />
-            </InputRightElement>
-          </InputGroup>
-          {/* price form*/}
-          <InputGroup size="sm" className={styles.input}>
-            <InputLeftElement
-              pointerEvents="none"
-              color="gray.300"
-              fontSize="1.2em"
-            >
-              <FaEthereum />
-            </InputLeftElement>
-            <Input
-              placeholder="Enter amount"
-              value={price}
-              defaultValue={1}
-              onChange={handleChangePrice}
-            />
-            <InputRightElement>
-              <CheckIcon color="green.500" />
-            </InputRightElement>
-          </InputGroup>
-          {/* token id */}
-          <InputGroup size="sm" className={styles.input}>
-            <NumberInput
-              size="xs"
-              maxW={16}
-              defaultValue={15}
-              value={number}
-              onChange={handleChangeToken}
-              min={10}
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </InputGroup>
-          {/* https form */}
-          <InputGroup size="sm" className={styles.input}>
-            <InputLeftAddon>https://</InputLeftAddon>
-            <Input
-              placeholder="ipfs.io"
-              onChange={handleChangeURI}
-              value={tokenURI}
-            />
-            <InputRightAddon>.com</InputRightAddon>
-          </InputGroup>
-          <InputGroup size="sm" className={styles.input}>
-            <InputLeftAddon>https://</InputLeftAddon>
-            <Input
-              placeholder="name"
-              value={name}
-              onChange={handleChangeName}
-            />
-            <InputRightAddon>.com</InputRightAddon>
-          </InputGroup>
-          <InputGroup size="sm">
-            <InputLeftAddon>https://</InputLeftAddon>
-            <Input
-              placeholder="desc"
-              value={desc}
-              onChange={handleChangeDesc}
-            />
-            <InputRightAddon>.com</InputRightAddon>
-          </InputGroup>
-          <Button
-            onClick={() => write?.()}
-            style={{
-              borderRadius: 50,
-              backgroundColor: "black",
-              color: "white",
-              width: "50%",
-              height: "50px",
-              fontSize: "20px",
-              cursor: "pointer",
-            }}
-          >
-            sell NFT
-          </Button>
+              sell NFT
+            </Button>
+          </div>
         </div>
       )}
     </>
