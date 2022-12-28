@@ -10,10 +10,15 @@ import {
   InputLeftElement,
   InputRightAddon,
   InputRightElement,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
 } from "@chakra-ui/react";
 import { FaEthereum } from "react-icons/fa";
 import { CheckIcon } from "@chakra-ui/icons";
-import styles from "./api.module.css";
+import styles from "../../styles/api.module.css";
 import contractAdress from "./ContractAdress";
 export const Sell = () => {
   const { address } = useAccount();
@@ -24,50 +29,16 @@ export const Sell = () => {
   const [tokenURI, setTokenURI] = useState("");
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-  const onChangeValue2 = (event) => {
-    if (event.target.value === "") {
-      setNft("0x0000000000000000000000000000000000000000");
-      return String.fromCharCode(parseInt("0x" + setNft, 16));
-    } else {
-      setNft(event.target.value);
-      return String.fromCharCode(parseInt("0x" + setNft, 16));
-    }
-  };
-  const onChangeValue4 = (event) => {
-    if (event.target.value === "") {
-      setName("");
-    } else {
-      setName(event.target.value);
-    }
-  };
-  const onChangeValue5 = (event) => {
-    if (event.target.value === "") {
-      setDesc("");
-    } else {
-      setDesc(event.target.value);
-    }
-  };
-  const onChangeValue3 = (event) => {
-    if (event.target.value === "") {
-      setTokenURI("");
-    } else {
-      setTokenURI(event.target.value);
-    }
-  };
-  const onChangeValue = (event) => {
-    if (event.target.value === "") {
-      setNumber("1");
-    } else {
-      setNumber(event.target.value);
-    }
-  };
-  const onChangeValue1 = (event) => {
-    if (event.target.value === "") {
-      setPrice("1");
-    } else {
-      setPrice(event.target.value);
-    }
-  };
+
+  const handleChangeToken = (number) => setNumber(number);
+  const handleChangeName = (name) => setName(name);
+  const handleChangeDesc = (desc) => setDesc(desc);
+  const handleChangeURI = (tokenURI) => setTokenURI(tokenURI);
+  const handleChangeAddress = (nft) => setNft(nft);
+  const handleChangePrice = (price) => setPrice(price);
+
+  console.log(number);
+
   const { config } = usePrepareContractWrite({
     address: contractAdress,
     chainId: 5,
@@ -141,7 +112,7 @@ export const Sell = () => {
         >
           <h1>Sell NFT</h1>
           <br />
-
+          {/* address form */}
           <InputGroup size="sm" className={styles.input}>
             <InputLeftElement
               pointerEvents="none"
@@ -154,13 +125,14 @@ export const Sell = () => {
               placeholder="0x0000000000000000000000000000000000"
               min={0}
               value={nft}
-              onChange={onChangeValue2}
+              defaultValue={nft}
+              onChange={handleChangeAddress}
             />
             <InputRightElement>
               <CheckIcon color="green.500" />
             </InputRightElement>
           </InputGroup>
-
+          {/* price form*/}
           <InputGroup size="sm" className={styles.input}>
             <InputLeftElement
               pointerEvents="none"
@@ -169,48 +141,59 @@ export const Sell = () => {
             >
               <FaEthereum />
             </InputLeftElement>
-            <Input placeholder="Enter amount" value={price} />
-            <InputRightElement>
-              <CheckIcon color="green.500" />
-            </InputRightElement>
-          </InputGroup>
-
-          <InputGroup size="sm" className={styles.input}>
-            <InputLeftElement
-              pointerEvents="none"
-              color="gray.300"
-              fontSize="1.2em"
-            >
-              TokenId
-            </InputLeftElement>
             <Input
-              placeholder="1"
-              value={number}
-              min={0}
-              onChange={onChangeValue}
+              placeholder="Enter amount"
+              value={price}
+              defaultValue={1}
+              onChange={handleChangePrice}
             />
             <InputRightElement>
               <CheckIcon color="green.500" />
             </InputRightElement>
           </InputGroup>
-
+          {/* token id */}
+          <InputGroup size="sm" className={styles.input}>
+            <NumberInput
+              size="xs"
+              maxW={16}
+              defaultValue={15}
+              value={number}
+              onChange={handleChangeToken}
+              min={10}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </InputGroup>
+          {/* https form */}
           <InputGroup size="sm" className={styles.input}>
             <InputLeftAddon>https://</InputLeftAddon>
             <Input
               placeholder="ipfs.io"
-              onChange={onChangeValue3}
+              onChange={handleChangeURI}
               value={tokenURI}
             />
             <InputRightAddon>.com</InputRightAddon>
           </InputGroup>
           <InputGroup size="sm" className={styles.input}>
             <InputLeftAddon>https://</InputLeftAddon>
-            <Input placeholder="name" value={name} onChange={onChangeValue4} />
+            <Input
+              placeholder="name"
+              value={name}
+              onChange={handleChangeName}
+            />
             <InputRightAddon>.com</InputRightAddon>
           </InputGroup>
           <InputGroup size="sm">
             <InputLeftAddon>https://</InputLeftAddon>
-            <Input placeholder="desc" value={desc} onChange={onChangeValue5} />
+            <Input
+              placeholder="desc"
+              value={desc}
+              onChange={handleChangeDesc}
+            />
             <InputRightAddon>.com</InputRightAddon>
           </InputGroup>
           <Button
