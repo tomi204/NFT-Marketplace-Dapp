@@ -82,6 +82,7 @@ const mlootContractConfig = {
     },
   ],
 };
+
 export function GetAllItems() {
   const { data, fetchNextPage, isLoading } = useContractInfiniteReads({
     cacheKey: "mlootAttributes",
@@ -99,12 +100,10 @@ export function GetAllItems() {
     ),
   });
   //get items from data and return in a new array
+  console.log(data.pages);
   const result = data?.pages?.map((page) => {
     return page?.map((item) => {
-      // Cannot read properties of null (reading '0')
-      //fix error cannot read properties of null (reading '0')
-
-      if (item?.id != 0) {
+      if (item?.id != 0 || item?.id != undefined || item?.id != null) {
         itemData = {
           id: item[0]?.toNumber(),
           nft: item[1],

@@ -21,11 +21,10 @@ import { CheckIcon } from "@chakra-ui/icons";
 import styles from "../../styles/api.module.css";
 import contractAdress from "./ContractAdress";
 export const Sell = () => {
-  const { address } = useAccount();
-  const { isConnected } = useAccount();
-  const [number, setNumber] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [nft, setNft] = useState("0x0000000000000000000000000000000000000000");
+  const { address, isConnected } = useAccount();
+  const [number, setNumber] = useState("");
+  const [price, setPrice] = useState("");
+  const [nft, setNft] = useState("");
   const [tokenURI, setTokenURI] = useState("");
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -85,15 +84,8 @@ export const Sell = () => {
         type: "function",
       },
     ],
-    args: [
-      ethers.utils.getAddress(nft),
-      ethers.BigNumber.from(number),
-      ethers.BigNumber.from(price),
-      name,
-      desc,
-      tokenURI,
-    ],
-
+    args: [nft, parseInt(number), parseInt(price), name, desc, tokenURI],
+    enabled: [nft, number, price, name, desc, tokenURI],
     functionName: "listNFT",
   });
   const { write } = useContractWrite(config);

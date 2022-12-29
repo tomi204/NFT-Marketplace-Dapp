@@ -9,7 +9,6 @@ import { GetAllItems } from "./../components/api/ListedTokens";
 
 const Home: NextPage = () => {
   const isMounted = useIsMounted();
-
   return (
     <div className={styles.container}>
       <Head>
@@ -18,6 +17,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+
       <main className={styles.main}></main>
       <Footer />
     </div>
