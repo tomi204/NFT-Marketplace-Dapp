@@ -22,7 +22,7 @@ import styles from "../../styles/api.module.css";
 import contractAdress from "./ContractAdress";
 export const Sell = () => {
   const { address, isConnected } = useAccount();
-  const [number, setNumber] = useState("");
+  const [number, setNumber] = useState(0);
   const [price, setPrice] = useState("");
   const [nft, setNft] = useState("");
   const [tokenURI, setTokenURI] = useState("");
@@ -115,7 +115,7 @@ export const Sell = () => {
                 placeholder="0x0000000000000000000000000000000000"
                 value={nft}
                 defaultValue={nft}
-                onChange={handleChangeAddress}
+                onChange={(e) => setNft(e.target.value)}
               />
               <InputRightElement>
                 <CheckIcon color="green.500" />
@@ -135,7 +135,7 @@ export const Sell = () => {
                 type={"number"}
                 placeholder="Enter amount"
                 value={price}
-                onChange={handleChangePrice}
+                onChange={(e) => setPrice(e.target.value)}
               />
               <InputRightElement>
                 <CheckIcon color="green.500" />
@@ -144,17 +144,22 @@ export const Sell = () => {
             {/* token id */}
             <br />
             <InputGroup size="sm" className={styles.input}>
-              <NumberInput
-                size="xs"
-                value={number}
-                onChange={handleChangeToken}
+              <InputLeftElement
+                pointerEvents="none"
+                color="gray.300"
+                fontSize="1.2em"
               >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
+                Token ID
+              </InputLeftElement>
+              <Input
+                type={"number"}
+                placeholder="Enter amount"
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
+              />
+              <InputRightElement>
+                <CheckIcon color="green.500" />
+              </InputRightElement>
             </InputGroup>
             {/* https form */}
             <br />
@@ -162,7 +167,7 @@ export const Sell = () => {
               <InputLeftAddon>https://</InputLeftAddon>
               <Input
                 placeholder="ipfs.io"
-                onChange={handleChangeURI}
+                onChange={(e) => setTokenURI(e.target.value)}
                 value={tokenURI}
               />
               <InputRightAddon>.com</InputRightAddon>
@@ -173,7 +178,7 @@ export const Sell = () => {
               <Input
                 placeholder="name"
                 value={name}
-                onChange={handleChangeName}
+                onChange={(e) => setName(e.target.value)}
               />
             </InputGroup>
             <br />
@@ -181,7 +186,7 @@ export const Sell = () => {
               <Input
                 placeholder="desc"
                 value={desc}
-                onChange={handleChangeDesc}
+                onChange={(e) => setDesc(e.target.value)}
               />
             </InputGroup>
             <br />
