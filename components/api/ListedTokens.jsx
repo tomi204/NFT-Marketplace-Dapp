@@ -9,7 +9,7 @@ import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import contractAdress from "./ContractAdress";
-
+const itemData = {};
 const mlootContractConfig = {
   address: contractAdress,
   chainId: 5,
@@ -100,10 +100,9 @@ export function GetAllItems() {
     ),
   });
   //get items from data and return in a new array
-  console.log(data.pages);
   const result = data?.pages?.map((page) => {
     return page?.map((item) => {
-      if (item?.id != 0 || item?.id != undefined || item?.id != null) {
+      if (item?.id != undefined || item?.id != null) {
         itemData = {
           id: item[0]?.toNumber(),
           nft: item[1],

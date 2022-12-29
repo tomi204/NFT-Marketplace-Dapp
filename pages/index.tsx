@@ -9,6 +9,8 @@ import { GetAllItems } from "./../components/api/ListedTokens";
 
 const Home: NextPage = () => {
   const isMounted = useIsMounted();
+  const { items } = GetAllItems();
+  console.log(items);
   return (
     <div className={styles.container}>
       <Head>
