@@ -35,9 +35,6 @@ export const Sell = () => {
   const handleChangeURI = (tokenURI) => setTokenURI(tokenURI);
   const handleChangeAddress = (nft) => setNft(nft);
   const handleChangePrice = (price) => setPrice(price);
-
-  console.log(number);
-
   const { config } = usePrepareContractWrite({
     address: contractAdress,
     chainId: 5,
@@ -109,12 +106,13 @@ export const Sell = () => {
             <InputGroup size="sm" className={styles.input}>
               <InputLeftElement
                 pointerEvents="none"
-                color="gray.300"
+                color="blackAlpha.100"
                 fontSize="1.2em"
-              ></InputLeftElement>
+              >
+                Address
+              </InputLeftElement>
               <Input
                 placeholder="0x0000000000000000000000000000000000"
-                min={0}
                 value={nft}
                 defaultValue={nft}
                 onChange={handleChangeAddress}
@@ -137,7 +135,6 @@ export const Sell = () => {
                 type={"number"}
                 placeholder="Enter amount"
                 value={price}
-                defaultValue={1}
                 onChange={handleChangePrice}
               />
               <InputRightElement>
@@ -149,12 +146,8 @@ export const Sell = () => {
             <InputGroup size="sm" className={styles.input}>
               <NumberInput
                 size="xs"
-                maxW={16}
-                type={"number"}
-                defaultValue={15}
                 value={number}
                 onChange={handleChangeToken}
-                min={10}
               >
                 <NumberInputField />
                 <NumberInputStepper>
