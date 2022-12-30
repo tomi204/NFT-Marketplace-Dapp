@@ -100,26 +100,18 @@ export const Sell = () => {
           }}
         >
           <div className={styles.divForm}>
-            <h1>Sell NFT</h1>
             <br />
             {/* address form */}
             <InputGroup size="sm" className={styles.input}>
-              <InputLeftElement
-                pointerEvents="none"
-                color="blackAlpha.100"
-                fontSize="1.2em"
-              >
-                Address
-              </InputLeftElement>
               <Input
-                placeholder="0x0000000000000000000000000000000000"
+                borderTop={"none"}
+                borderRight={"none"}
+                borderLeft={"none"}
+                borderColor={"black"}
+                placeholder="NFT ADDRESS"
                 value={nft}
-                defaultValue={nft}
                 onChange={(e) => setNft(e.target.value)}
               />
-              <InputRightElement>
-                <CheckIcon color="green.500" />
-              </InputRightElement>
             </InputGroup>
             {/* price form*/}
             <br />
@@ -132,51 +124,40 @@ export const Sell = () => {
                 <FaEthereum />
               </InputLeftElement>
               <Input
+                borderTop={"none"}
+                borderRight={"none"}
+                borderLeft={"none"}
+                borderColor={"black"}
                 type={"number"}
-                placeholder="Enter amount"
+                placeholder="ENTER NFT PRICE"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
-              <InputRightElement>
-                <CheckIcon color="green.500" />
-              </InputRightElement>
             </InputGroup>
             {/* token id */}
             <br />
             <InputGroup size="sm" className={styles.input}>
-              <InputLeftElement
-                pointerEvents="none"
-                color="gray.300"
-                fontSize="1.2em"
-              >
-                Token ID
-              </InputLeftElement>
               <Input
+                borderTop={"none"}
+                borderRight={"none"}
+                borderLeft={"none"}
+                borderColor={"black"}
                 type={"number"}
-                placeholder="Enter amount"
+                placeholder="Token ID"
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
               />
-              <InputRightElement>
-                <CheckIcon color="green.500" />
-              </InputRightElement>
             </InputGroup>
-            {/* https form */}
-            <br />
-            <InputGroup size="sm" className={styles.input}>
-              <InputLeftAddon>https://</InputLeftAddon>
-              <Input
-                placeholder="ipfs.io"
-                onChange={(e) => setTokenURI(e.target.value)}
-                value={tokenURI}
-              />
-              <InputRightAddon>.com</InputRightAddon>
-            </InputGroup>
+
             <br />
             {/* name form */}
             <InputGroup size="sm" className={styles.input}>
               <Input
-                placeholder="name"
+                borderTop={"none"}
+                borderRight={"none"}
+                borderLeft={"none"}
+                borderColor={"black"}
+                placeholder="NAME OF NFT"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -184,10 +165,30 @@ export const Sell = () => {
             <br />
             <InputGroup size="sm">
               <Input
-                placeholder="desc"
+                borderTop={"none"}
+                borderRight={"none"}
+                borderLeft={"none"}
+                borderColor={"black"}
+                placeholder="DESCRIPTION OF NFT "
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
               />
+            </InputGroup>
+            <br />
+            {/* https form */}
+
+            <InputGroup size="sm" className={styles.input}>
+              <InputLeftAddon>https://</InputLeftAddon>
+              <Input
+                borderTop={"none"}
+                borderRight={"none"}
+                borderLeft={"none"}
+                borderColor={"black"}
+                placeholder="URL OF NFT IMAGE"
+                onChange={(e) => setTokenURI(e.target.value)}
+                value={tokenURI}
+              />
+              <InputRightAddon>.com</InputRightAddon>
             </InputGroup>
             <br />
             <Button
@@ -202,7 +203,7 @@ export const Sell = () => {
                 cursor: "pointer",
               }}
             >
-              sell NFT
+              LIST NFT
             </Button>
           </div>
         </div>
