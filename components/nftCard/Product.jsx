@@ -3,6 +3,15 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  Divider,
+  Heading,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
 import { GetAllItems } from "./../api/ListedTokens";
@@ -43,14 +52,24 @@ const Product = () => {
       ) : (
         <div>
           {itemsFind.map((item) => (
-            <div key={item.id}>
-              <div>{item.name}</div>
-              <div>{item.description}</div>
-              <div>{item.price}</div>
-              <div>{item.image}</div>
-              <div>{item.seller}</div>
-              <div>{item.sold}</div>
-            </div>
+            <Card maxW="sm" key={item.id}>
+              <CardBody>
+                <img src={item.tokenURI} alt={item.name} borderRadius="lg" />
+                <Stack mt="6" spacing="3">
+                  <Heading size="md">Living room Sofa</Heading>
+                  <Text>
+                    This sofa is perfect for modern tropical spaces, baroque
+                    inspired spaces, earthy toned spaces and for people who love
+                    a chic design with a sprinkle of vintage design.
+                  </Text>
+                  <Text color="blue.600" fontSize="2xl">
+                    {item.price}
+                  </Text>
+                </Stack>
+              </CardBody>
+              <Divider />
+              <CardFooter></CardFooter>
+            </Card>
           ))}
         </div>
       )}
