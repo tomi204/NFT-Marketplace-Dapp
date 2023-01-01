@@ -20,6 +20,12 @@ import { FaEthereum } from "react-icons/fa";
 import { CheckIcon } from "@chakra-ui/icons";
 import styles from "../../styles/api.module.css";
 import contractAdress from "./ContractAdress";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 export const Sell = () => {
   const { address, isConnected } = useAccount();
   const [number, setNumber] = useState(0);
@@ -29,12 +35,6 @@ export const Sell = () => {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
 
-  const handleChangeToken = (number) => setNumber(number);
-  const handleChangeName = (name) => setName(name);
-  const handleChangeDesc = (desc) => setDesc(desc);
-  const handleChangeURI = (tokenURI) => setTokenURI(tokenURI);
-  const handleChangeAddress = (nft) => setNft(nft);
-  const handleChangePrice = (price) => setPrice(price);
   const { config } = usePrepareContractWrite({
     address: contractAdress,
     chainId: 5,
@@ -89,7 +89,7 @@ export const Sell = () => {
 
   return (
     <>
-      {isConnected && (
+      {isConnected ? (
         <div
           style={{
             display: "flex",
@@ -97,6 +97,7 @@ export const Sell = () => {
             justifyContent: "center",
             width: "100%",
             alignItems: "center",
+            height: "100%",
           }}
         >
           <div className={styles.divForm}>
@@ -109,6 +110,7 @@ export const Sell = () => {
                 borderLeft={"none"}
                 borderColor={"black"}
                 placeholder="NFT ADDRESS"
+                textColor={"black"}
                 value={nft}
                 onChange={(e) => setNft(e.target.value)}
               />
@@ -127,6 +129,7 @@ export const Sell = () => {
                 borderTop={"none"}
                 borderRight={"none"}
                 borderLeft={"none"}
+                textColor={"blackAlpha.300"}
                 borderColor={"black"}
                 type={"number"}
                 placeholder="ENTER NFT PRICE"
@@ -206,6 +209,35 @@ export const Sell = () => {
               LIST NFT
             </Button>
           </div>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            width: "100%",
+          }}
+        >
+          <Alert
+            status="error"
+            style={{
+              width: "50%",
+              height: "50%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <AlertIcon />
+            <AlertTitle>Connect your wallet</AlertTitle>
+            <br />
+            <AlertDescription>
+              connect your wallet to access this function
+            </AlertDescription>
+          </Alert>
         </div>
       )}
     </>
