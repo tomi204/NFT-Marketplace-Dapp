@@ -130,10 +130,9 @@ export const Sell = () => {
                 borderTop={"none"}
                 borderRight={"none"}
                 borderLeft={"none"}
-                textColor={"blackAlpha.300"}
                 borderColor={"black"}
                 type={"number"}
-                placeholder="ENTER NFT PRICE"
+                placeholder="NFT PRICE"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
@@ -147,7 +146,7 @@ export const Sell = () => {
                 borderLeft={"none"}
                 borderColor={"black"}
                 type={"number"}
-                placeholder="Token ID"
+                placeholder="NFT TOKEN ID"
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
               />
@@ -161,7 +160,7 @@ export const Sell = () => {
                 borderRight={"none"}
                 borderLeft={"none"}
                 borderColor={"black"}
-                placeholder="NAME OF NFT"
+                placeholder="NFT NAME"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -173,7 +172,7 @@ export const Sell = () => {
                 borderRight={"none"}
                 borderLeft={"none"}
                 borderColor={"black"}
-                placeholder="DESCRIPTION OF NFT "
+                placeholder="NFT DESCRIPTION"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
               />
@@ -199,15 +198,9 @@ export const Sell = () => {
             <br />
             <Button
               onClick={() => write?.()}
-              style={{
-                borderRadius: 50,
-                backgroundColor: "black",
-                color: "white",
-                width: "50%",
-                height: "50px",
-                fontSize: "20px",
-                cursor: "pointer",
-              }}
+              colorScheme="blue"
+              borderRadius={"10px"}
+              size={"lg"}
             >
               LIST NFT
             </Button>
