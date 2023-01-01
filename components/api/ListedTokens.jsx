@@ -102,7 +102,7 @@ export function GetAllItems() {
   //get items from data and return in a new array
   const result = data?.pages?.map((page) => {
     return page?.map((item) => {
-      if (item?.id != undefined || item?.id != null) {
+      if (item?.id != undefined || item?.id != null || item?.id != 0) {
         itemData = {
           id: item[0]?.toNumber(),
           nft: item[1],

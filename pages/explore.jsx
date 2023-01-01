@@ -1,7 +1,10 @@
 import React from "react";
+import Product from "./../components/nftCard/Product";
+import { useIsMounted } from "./../components/utils/mounted";
 
-const explore = () => {
-  return <div>explore</div>;
+const Explore = () => {
+  const mounted = useIsMounted();
+  return <div>{mounted ? <Product /> : null}</div>;
 };
 
-export default explore;
+export default Explore;
