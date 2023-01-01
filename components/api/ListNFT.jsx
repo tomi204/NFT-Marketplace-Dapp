@@ -195,7 +195,7 @@ export const Sell = () => {
               <InputRightAddon>.com</InputRightAddon>
             </InputGroup>
             <br />
-            <ApproveMarketplace />
+            <ApproveMarketplace NFT={nft} tokenID={number} />
             <br />
             <Button
               onClick={() => write?.()}
