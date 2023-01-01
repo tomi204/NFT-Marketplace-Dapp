@@ -25,14 +25,6 @@ const ApproveMarketplace = (NFT, tokenID) => {
       <Button colorScheme={"blue"} onClick={() => write?.()}>
         Approve
       </Button>
-      {/* {isLoading && (
-        <Button loadingText="Loading" colorScheme="teal" variant="outline" />
-      )}
-      {isSuccess && (
-        <Button colorScheme="teal" variant="outline">
-          Success
-        </Button>
-      )} */}
     </div>
   );
 };
