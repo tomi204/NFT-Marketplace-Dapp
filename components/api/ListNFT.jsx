@@ -16,6 +16,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/react";
+import ApproveMarketplace from "./ApproveMarketplace";
 import { FaEthereum } from "react-icons/fa";
 import { CheckIcon } from "@chakra-ui/icons";
 import styles from "../../styles/api.module.css";
@@ -193,6 +194,8 @@ export const Sell = () => {
               />
               <InputRightAddon>.com</InputRightAddon>
             </InputGroup>
+            <br />
+            <ApproveMarketplace />
             <br />
             <Button
               onClick={() => write?.()}

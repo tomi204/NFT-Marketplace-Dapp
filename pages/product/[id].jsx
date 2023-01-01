@@ -17,10 +17,6 @@ import {
   Tag,
   useDisclosure,
   Popover,
-  PopoverFooter,
-  Button,
-  useToast,
-  Flex,
 } from "@chakra-ui/react";
 import { Heading, Text } from "@chakra-ui/react";
 import styles from "./id.module.css";
@@ -29,7 +25,7 @@ import { ethers } from "ethers";
 
 const ItemID = () => {
   const mounted = useIsMounted();
-  const { items, itemsFind } = GetAllItems();
+  const { itemsFind } = GetAllItems();
   const router = useRouter();
   const { id } = router.query;
   const itemId = parseInt(id);
