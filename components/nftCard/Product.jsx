@@ -13,7 +13,9 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { ethers } from "ethers";
 import React from "react";
+import { FaEthereum } from "react-icons/fa";
 import { GetAllItems } from "./../api/ListedTokens";
 import styles from "./product.module.css";
 const Product = () => {
@@ -42,28 +44,26 @@ const Product = () => {
             }}
           >
             <AlertIcon />
-            <AlertTitle>Connect your wallet</AlertTitle>
+            <AlertTitle>Error</AlertTitle>
             <br />
-            <AlertDescription>
-              connect your wallet to access this function
-            </AlertDescription>
+            <AlertDescription>reload website</AlertDescription>
           </Alert>
         </div>
       ) : (
-        <div>
+        <div className={styles.mainCard}>
           {itemsFind.map((item) => (
-            <Card maxW="sm" key={item.id}>
+            <Card maxW="sm" key={item.id} justifyContent={"center"}>
               <CardBody>
                 <img src={item.tokenURI} alt={item.name} borderRadius="lg" />
                 <Stack mt="6" spacing="3">
-                  <Heading size="md">Living room Sofa</Heading>
-                  <Text>
-                    This sofa is perfect for modern tropical spaces, baroque
-                    inspired spaces, earthy toned spaces and for people who love
-                    a chic design with a sprinkle of vintage design.
-                  </Text>
-                  <Text color="blue.600" fontSize="2xl">
-                    {item.price}
+                  <Heading size="md">{item.name}</Heading>
+
+                  <Text
+                    color="blue.600"
+                    fontSize="2xl"
+                    justifyContent={"center"}
+                  >
+                    <FaEthereum /> {ethers.utils.formatEther(item.price)}
                   </Text>
                 </Stack>
               </CardBody>
