@@ -57,18 +57,19 @@ const Product = () => {
                 <img src={item.tokenURI} alt={item.name} borderRadius="lg" />
                 <Stack mt="6" spacing="3">
                   <Heading size="md">{item.name}</Heading>
-
-                  <Text
-                    color="blue.600"
-                    fontSize="2xl"
-                    justifyContent={"center"}
-                  >
-                    <FaEthereum /> {ethers.utils.formatEther(item.price)}
-                  </Text>
                 </Stack>
+                <Text color="blue.600" fontSize="2xl" justifyContent={"center"}>
+                  <FaEthereum /> {ethers.utils.formatEther(item.price)}
+                </Text>
               </CardBody>
               <Divider />
-              <CardFooter></CardFooter>
+              <CardFooter>
+                <a href={`/product/${item.id}`}>
+                  <Button variant="ghost" colorScheme="blue">
+                    View More
+                  </Button>
+                </a>
+              </CardFooter>
             </Card>
           ))}
         </div>
