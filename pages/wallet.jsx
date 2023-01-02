@@ -41,64 +41,64 @@ const Wallet = () => {
   const bool = itemsFind?.some((item) => {
     return item.seller === address;
   });
-
-  return (
-    <div className={styles.walletPage}>
-      <Navbar />
-      {isConnected ? (
-        <div className={styles.container}>
-          <Heading textAlign={"center"} size="md">
-            {address}
+  if (mounted)
+    return (
+      <div className={styles.walletPage}>
+        <Navbar />
+        {isConnected ? (
+          <div className={styles.container}>
+            <Button colorScheme="blue" variant="outline">
+              {address}
+            </Button>
+            <br />
             {mounted ? <Balance NFT={address} /> : null}
-          </Heading>
-        </div>
-      ) : (
-        <div>
-          <Heading textAlign={"center"} size="md">
-            Connect your wallet
-          </Heading>
-        </div>
-      )}
+          </div>
+        ) : (
+          <div>
+            <Heading textAlign={"center"} size="md">
+              Connect your wallet
+            </Heading>
+          </div>
+        )}
 
-      {bool ? (
-        <div className={styles.cardDiv}>
-          {itemsFind
-            ?.filter((item) => {
-              return item.seller === address;
-            })
-            .map((item) => {
-              return (
-                <Card maxW="sm" key={item.id} justifyContent={"center"}>
-                  <CardBody>
-                    <img
-                      src={item.tokenURI}
-                      alt={item.name}
-                      borderRadius="lg"
-                      className={styles.imgCard}
-                    />
-                    <Stack mt="6" spacing="3">
-                      <Heading size="md">{item.name}</Heading>
-                    </Stack>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <a href={`/product/${item.id}`}>
-                      <Button variant="ghost" colorScheme="blue">
-                        View More
-                      </Button>
-                    </a>
-                  </CardFooter>
-                </Card>
-              );
-            })}
-        </div>
-      ) : (
-        <div>
-          <h1>You dont have NFTs listed</h1>
-        </div>
-      )}
-    </div>
-  );
+        {bool ? (
+          <div className={styles.cardDiv}>
+            {itemsFind
+              ?.filter((item) => {
+                return item.seller === address;
+              })
+              .map((item) => {
+                return (
+                  <Card maxW="sm" key={item.id} justifyContent={"center"}>
+                    <CardBody>
+                      <img
+                        src={item.tokenURI}
+                        alt={item.name}
+                        className={styles.imgCard}
+                      />
+                      <Stack mt="6" spacing="3">
+                        <Heading size="md">{item.name}</Heading>
+                      </Stack>
+                    </CardBody>
+                    <Divider />
+                    <CardFooter>
+                      <a href={`/product/${item.id}`}>
+                        <Button variant="ghost" colorScheme="blue">
+                          View More
+                        </Button>
+                      </a>
+                    </CardFooter>
+                  </Card>
+                );
+              })}
+          </div>
+        ) : (
+          <div>
+            <h1>You dont have NFTs listed</h1>
+          </div>
+        )}
+      </div>
+    );
 };
 
 export default Wallet;

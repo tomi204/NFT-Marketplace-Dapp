@@ -5,9 +5,18 @@
 }
 .container {
   margin-top: 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .imgCard {
   width: 100%;
   height: 70%;
   object-fit: cover;
+}
+.walletPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
