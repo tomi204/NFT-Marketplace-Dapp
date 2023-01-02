@@ -1,5 +1,6 @@
 import React from "react";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { Button } from "@chakra-ui/react";
 
 export const Buy = (id, token) => {
   const { address, isConnected } = useAccount();
@@ -42,14 +43,17 @@ export const Buy = (id, token) => {
   return (
     <>
       {isConnected && (
-        <button
+        <Button
           className="custom-btn btn-9"
           disabled={isSuccess}
+          colorScheme="blue"
+          isLoading={isLoading}
+          loadingText="Buying"
           style={{ borderRadius: "20px" }}
           onClick={() => write?.()}
         >
-          Buy
-        </button>
+          Buy NFT
+        </Button>
       )}
     </>
   );

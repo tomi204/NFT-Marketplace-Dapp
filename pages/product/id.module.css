@@ -5,3 +5,8 @@
   justify-content: center;
   margin-top: 6%;
 }
+.imgNft {
+  width: 50%;
+  height: 30%;
+  object-fit: cover;
+}
