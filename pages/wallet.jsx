@@ -69,7 +69,12 @@ const Wallet = () => {
               })
               .map((item) => {
                 return (
-                  <Card maxW="sm" key={item.id} justifyContent={"center"}>
+                  <Card
+                    maxW="sm"
+                    key={item.id}
+                    className={styles.cards}
+                    justifyContent={"center"}
+                  >
                     <CardBody>
                       <img
                         src={item.tokenURI}
