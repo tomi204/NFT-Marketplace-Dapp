@@ -54,7 +54,12 @@ const Product = () => {
           {itemsFind.map((item) => (
             <Card maxW="sm" key={item.id} justifyContent={"center"}>
               <CardBody>
-                <img src={item.tokenURI} alt={item.name} borderRadius="lg" />
+                <img
+                  src={item.tokenURI}
+                  alt={item.name}
+                  borderRadius="lg"
+                  className={styles.imgCard}
+                />
                 <Stack mt="6" spacing="3">
                   <Heading size="md">{item.name}</Heading>
                 </Stack>

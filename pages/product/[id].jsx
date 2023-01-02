@@ -100,9 +100,10 @@ const ItemID = () => {
                           </PopoverContent>
                         </Popover>
                       </Tag>
-                      <Buy id={nft.id} token={nft.price} />
                     </HStack>
                   </div>
+                  <br />
+                  <Buy id={nft.id} token={nft.price} />
                 </div>
               );
             })}

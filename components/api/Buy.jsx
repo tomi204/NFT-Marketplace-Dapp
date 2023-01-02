@@ -46,13 +46,12 @@ export const Buy = (id, token) => {
         <Button
           className="custom-btn btn-9"
           disabled={isSuccess}
-          colorScheme="blue"
+          colorScheme="whatsapp"
           isLoading={isLoading}
           loadingText="Buying"
-          style={{ borderRadius: "20px" }}
           onClick={() => write?.()}
         >
-          Buy NFT
+          BUY NFT
         </Button>
       )}
     </>
