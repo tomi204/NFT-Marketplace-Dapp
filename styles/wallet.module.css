@@ -1,0 +1,13 @@
+.cardDiv {
+  display: grid;
+  margin: 5%;
+  grid-template-columns: repeat(3, 1fr);
+}
+.container {
+  margin-top: 6%;
+}
+.imgCard {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+}

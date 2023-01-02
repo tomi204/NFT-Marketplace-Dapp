@@ -14,6 +14,12 @@ import {
   Tag,
   useDisclosure,
   Popover,
+  CardFooter,
+  Divider,
+  Stack,
+  CardBody,
+  Card,
+  Button,
 } from "@chakra-ui/react";
 import { Heading, Text } from "@chakra-ui/react";
 import styles from "../styles/wallet.module.css";
@@ -23,6 +29,7 @@ import { useIsMounted } from "./../components/utils/mounted";
 import { GetAllItems } from "./../components/api/ListedTokens";
 import { useAccount } from "wagmi";
 import Navbar from "./../components/navbar/Navbar";
+import Balance from "./../components/api/Balance";
 
 const Wallet = () => {
   const mounted = useIsMounted();
@@ -36,78 +43,58 @@ const Wallet = () => {
   });
 
   return (
-    <div>
+    <div className={styles.walletPage}>
       <Navbar />
-      {bool ? (
+      {isConnected ? (
+        <div className={styles.container}>
+          <Heading textAlign={"center"} size="md">
+            {address}
+            {mounted ? <Balance NFT={address} /> : null}
+          </Heading>
+        </div>
+      ) : (
         <div>
+          <Heading textAlign={"center"} size="md">
+            Connect your wallet
+          </Heading>
+        </div>
+      )}
+
+      {bool ? (
+        <div className={styles.cardDiv}>
           {itemsFind
             ?.filter((item) => {
               return item.seller === address;
             })
-            .map((nft) => {
+            .map((item) => {
               return (
-                <div key={nft.id} className={styles.NFTDiv}>
-                  <img
-                    className={styles.imgNft}
-                    src={nft.tokenURI}
-                    alt={nft.desc}
-                  />
-
-                  <div>
-                    <Heading textAlign={"center"} size="md">
-                      {nft.name}
-                    </Heading>
-
-                    <HStack spacing={3}>
-                      <Tag
-                        size="lg"
-                        key={nft.price}
-                        variant="solid"
-                        colorScheme="blue"
-                      >
-                        <FaEthereum />
-                        <TagLabel>
-                          <b>{ethers.utils.formatEther(nft.price)}</b>
-                        </TagLabel>
-                      </Tag>
-                      <Tag
-                        size="lg"
-                        key={nft.id}
-                        variant="solid"
-                        colorScheme="blue"
-                      >
-                        Token ID: <b>{nft.tokenId}</b>
-                      </Tag>
-                      <Tag
-                        size="lg"
-                        key={nft.nft}
-                        variant="solid"
-                        colorScheme="blue"
-                        cursor="pointer"
-                      >
-                        <Popover arrowPadding={2}>
-                          <PopoverTrigger>
-                            <TagLabel>Owner</TagLabel>
-                          </PopoverTrigger>
-                          <PopoverContent>
-                            <PopoverArrow />
-                            <PopoverCloseButton />
-                            <PopoverHeader color="black">
-                              NFT Address: {nft.nft}
-                            </PopoverHeader>
-                          </PopoverContent>
-                        </Popover>
-                      </Tag>
-                    </HStack>
-                  </div>
-                  <br />
-                </div>
+                <Card maxW="sm" key={item.id} justifyContent={"center"}>
+                  <CardBody>
+                    <img
+                      src={item.tokenURI}
+                      alt={item.name}
+                      borderRadius="lg"
+                      className={styles.imgCard}
+                    />
+                    <Stack mt="6" spacing="3">
+                      <Heading size="md">{item.name}</Heading>
+                    </Stack>
+                  </CardBody>
+                  <Divider />
+                  <CardFooter>
+                    <a href={`/product/${item.id}`}>
+                      <Button variant="ghost" colorScheme="blue">
+                        View More
+                      </Button>
+                    </a>
+                  </CardFooter>
+                </Card>
               );
             })}
         </div>
       ) : (
         <div>
-          <h1>404</h1>
+          <h1>You dont have NFTs listed</h1>
         </div>
       )}
     </div>

@@ -21,7 +21,7 @@ const Navbar = () => {
         </Link>
       </li>
       <li>
-        <Link href="/">
+        <Link href="/wallet">
           <a className={styles.link}>Wallet</a>
         </Link>
       </li>
