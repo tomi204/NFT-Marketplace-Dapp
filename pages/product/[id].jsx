@@ -22,6 +22,7 @@ import { Heading, Text } from "@chakra-ui/react";
 import styles from "./id.module.css";
 import { FaEthereum } from "react-icons/fa";
 import { ethers } from "ethers";
+import { Buy } from "../../components/api/Buy";
 
 const ItemID = () => {
   const mounted = useIsMounted();
@@ -99,6 +100,7 @@ const ItemID = () => {
                           </PopoverContent>
                         </Popover>
                       </Tag>
+                      <Buy id={nft.id} token={nft.price} />
                     </HStack>
                   </div>
                 </div>

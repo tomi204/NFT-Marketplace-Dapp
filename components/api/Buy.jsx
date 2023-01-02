@@ -3,19 +3,15 @@ import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 
 export const Buy = (id, token) => {
   const { address, isConnected } = useAccount();
-  const itemId = id.id.id;
-  console.log(token);
-  const tokenId = id.id.tokenId;
-  const price = id.id.price;
-  const priceInt = parseInt(price);
-
+  const itemId = id.id;
+  const price = id.token;
   const { config } = usePrepareContractWrite({
     address: "0x88Ab79411cDc6A17cA1D8233A505FC4d41BC7f80",
     chainId: 5,
 
     overrides: {
       from: address,
-      value: priceInt,
+      value: price,
     },
     functionName: "buyNFT",
     abi: [
