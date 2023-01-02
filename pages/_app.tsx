@@ -23,7 +23,7 @@ import {
 } from "@rainbow-me/rainbowkit/wallets";
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [goerli, polygon],
+  [goerli],
   [
     alchemyProvider({
       apiKey: "EypKcb615zspS9zr3YpMF1zNodFvArmW",
