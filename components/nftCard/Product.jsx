@@ -18,6 +18,7 @@ import React from "react";
 import { FaEthereum } from "react-icons/fa";
 import { GetAllItems } from "./../api/ListedTokens";
 import styles from "./product.module.css";
+import { Spinner } from "@chakra-ui/react";
 const Product = () => {
   const { items, itemsFind, isLoading } = GetAllItems();
   return (
@@ -32,22 +33,13 @@ const Product = () => {
             width: "100%",
           }}
         >
-          <Alert
-            status="error"
-            style={{
-              width: "50%",
-              height: "50%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <AlertIcon />
-            <AlertTitle>Error</AlertTitle>
-            <br />
-            <AlertDescription>reload website</AlertDescription>
-          </Alert>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
         </div>
       ) : (
         <div className={styles.mainCard}>
