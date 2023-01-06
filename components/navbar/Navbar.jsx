@@ -11,11 +11,6 @@ const Navbar = () => {
         </Link>
       </li>
       <li>
-        <Link href="/explore">
-          <a className={styles.link}>Explore </a>
-        </Link>
-      </li>
-      <li>
         <Link href="/sell">
           <a className={styles.link}>Sell NFT</a>
         </Link>

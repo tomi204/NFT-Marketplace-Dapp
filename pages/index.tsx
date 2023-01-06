@@ -6,9 +6,10 @@ import Footer from "./../components/footer/Footer";
 import { useIsMounted } from "./../components/utils/mounted";
 import { Sell } from "./../components/api/ListNFT";
 import { GetAllItems } from "./../components/api/ListedTokens";
+import Product from "./../components/nftCard/Product";
 
 const Home: NextPage = () => {
-  const isMounted = useIsMounted();
+  const mounted = useIsMounted();
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
       </Head>
       <Navbar />
 
-      <main className={styles.main}></main>
+      <main className={styles.main}>{mounted ? <Product /> : null}</main>
       <Footer />
     </div>
   );

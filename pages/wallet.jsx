@@ -30,6 +30,7 @@ import { GetAllItems } from "./../components/api/ListedTokens";
 import { useAccount } from "wagmi";
 import Navbar from "./../components/navbar/Navbar";
 import Balance from "./../components/api/Balance";
+import Footer from "./../components/footer/Footer";
 
 const Wallet = () => {
   const mounted = useIsMounted();
@@ -102,6 +103,7 @@ const Wallet = () => {
             <h1>You dont have NFTs listed</h1>
           </div>
         )}
+        <Footer />
       </div>
     );
 };

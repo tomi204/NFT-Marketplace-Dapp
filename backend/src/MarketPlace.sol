@@ -139,7 +139,7 @@ contract marketPlace is ReentrancyGuard {
 
     //@dev withdraw founds function
 
-    function withdrawFunds() public onlyOwner {
+    function withdrawFunds() public nonReentrant onlyOwner {
         payable(owner).transfer(address(this).balance);
     }
 
