@@ -144,7 +144,7 @@ export const Sell = () => {
             <InputGroup size="sm" className={styles.input}>
               <InputLeftElement
                 pointerEvents="none"
-                color="gray.300"
+                color="black"
                 fontSize="1.2em"
               >
                 <FaEthereum />
@@ -163,6 +163,9 @@ export const Sell = () => {
                 alignItems={"center"}
                 justifyContent={"center"}
                 width={"25%"}
+                pointerEvents="none"
+                color="black"
+                fontSize="1.2em"
               >
                 <FaDollarSign />
                 {(price * ethPrice)?.toFixed(0)}
@@ -171,7 +174,7 @@ export const Sell = () => {
             {/* token id */}
             <br />
             <InputGroup size="sm" className={styles.input}>
-              <InputLeftElement pointerEvents="none" color="gray.300">
+              <InputLeftElement pointerEvents="none" color="black">
                 ID
               </InputLeftElement>
               <Input
