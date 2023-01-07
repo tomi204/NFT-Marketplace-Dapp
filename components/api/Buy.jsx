@@ -46,7 +46,8 @@ export const Buy = (id, token) => {
         <Button
           className="custom-btn btn-9"
           disabled={isSuccess}
-          colorScheme="whatsapp"
+          colorScheme="blue"
+          hoverColor="blue.1200"
           isLoading={isLoading}
           loadingText="Buying"
           onClick={() => write?.()}

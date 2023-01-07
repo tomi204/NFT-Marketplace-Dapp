@@ -3,10 +3,42 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  width: 80%;
+
   margin-top: 6%;
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
 }
 .imgNft {
-  width: 20%;
+  width: 40%;
   height: 10%;
   object-fit: cover;
+}
+.idPage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+@media screen and (max-width: 768px) {
+  .NFTDiv {
+    width: 75%;
+    margin-top: 15%;
+  }
+  .imgNft {
+    width: 70%;
+  }
+  .tag__info {
+    font-size: xx-small;
+  }
+  .nftData {
+    width: 90%;
+    font-size: small;
+    display: grid;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5%;
+  }
 }

@@ -46,8 +46,13 @@ const ItemID = () => {
     getEthPrice();
   }, []);
 
-  console.log(ethPrice, " ethPrice");
-
+  const breakpoints = {
+    sm: "30em",
+    md: "48em",
+    lg: "62em",
+    xl: "80em",
+    "2xl": "96em",
+  };
   return (
     <div>
       <Navbar />
@@ -59,85 +64,105 @@ const ItemID = () => {
             })
             .map((nft) => {
               return (
-                <div key={nft.id} className={styles.NFTDiv}>
-                  <img
-                    className={styles.imgNft}
-                    src={nft.tokenURI}
-                    alt={nft.desc}
-                  />
+                <div className={styles.idPage} key={nft.id}>
+                  <div className={styles.NFTDiv}>
+                    <br />
+                    <img
+                      className={styles.imgNft}
+                      src={nft.tokenURI}
+                      alt={nft.desc}
+                    />
 
-                  <div>
-                    <Heading textAlign={"center"} size="md">
-                      {nft.name}
-                    </Heading>
-                    <Text py="2">{nft.desc}</Text>
-                    <HStack spacing={3}>
-                      <Tag
-                        size="lg"
-                        key={nft.price}
-                        variant="solid"
-                        colorScheme="blue"
+                    <div>
+                      <Heading
+                        size={["sm", "md", "lg", "md"]}
+                        fontSize={["sm", "sm", "lg", "2xl"]}
+                        textAlign={"center"}
                       >
-                        <FaEthereum />
-                        <TagLabel>
-                          <b>
-                            {ethers.utils
-                              .formatEther(nft.price)
-                              ?.substring(0, 9)}
-                          </b>
-                        </TagLabel>
-                      </Tag>
-                      <Tag
-                        size="lg"
-                        key={nft.price}
-                        variant="solid"
-                        colorScheme="blue"
-                        className={styles.tag__info}
-                      >
-                        <FaDollarSign />
-                        <TagLabel>
-                          <b>
-                            {(
-                              ethers.utils.formatEther(nft.price) * ethPrice
-                            ).toFixed(5)}
-                          </b>
-                        </TagLabel>
-                      </Tag>
-                      <Tag
-                        size="lg"
-                        key={nft.id}
-                        variant="solid"
-                        colorScheme="blue"
-                      >
-                        Token ID: <b>{nft.tokenId}</b>
-                      </Tag>
-                      <Tag
-                        size="lg"
-                        key={nft.nft}
-                        variant="solid"
-                        colorScheme="blue"
-                        cursor="pointer"
-                      >
-                        <Popover arrowPadding={2}>
-                          <PopoverTrigger>
-                            <TagLabel>Owner</TagLabel>
-                          </PopoverTrigger>
-                          <PopoverContent>
-                            <PopoverArrow />
-                            <PopoverCloseButton />
-                            <PopoverHeader color="black">
-                              NFT Address: {nft.nft}
-                            </PopoverHeader>
-                            <PopoverBody color="black">
-                              Seller: {nft.seller}
-                            </PopoverBody>
-                          </PopoverContent>
-                        </Popover>
-                      </Tag>
-                    </HStack>
+                        {nft.name}
+                      </Heading>
+                      <br />
+                      <Text py="2" fontSize={["sm", "md", "lg", "xl"]}>
+                        {nft.desc}
+                      </Text>
+                      <br />
+                      <HStack className={styles.nftData} spacing={3}>
+                        <Tag
+                          size={["sm", "md", "lg", "md"]}
+                          fontSize={["sm", "sm", "lg", "2xl"]}
+                          key={nft.price}
+                          variant="solid"
+                          colorScheme="blue"
+                          className={styles.tag__info}
+                        >
+                          <FaEthereum />
+                          <TagLabel>
+                            <b>
+                              {ethers.utils
+                                .formatEther(nft.price)
+                                ?.substring(0, 9)}
+                            </b>
+                          </TagLabel>
+                        </Tag>
+                        <Tag
+                          size={["sm", "md", "lg", "md"]}
+                          fontSize={["sm", "sm", "lg", "2xl"]}
+                          key={nft.price}
+                          variant="solid"
+                          colorScheme="blue"
+                          className={styles.tag__info}
+                        >
+                          <FaDollarSign />
+                          <TagLabel>
+                            <b>
+                              {(
+                                ethers.utils.formatEther(nft.price) * ethPrice
+                              ).toFixed(5)}
+                            </b>
+                          </TagLabel>
+                        </Tag>
+                        <Tag
+                          size={["sm", "md", "lg", "md"]}
+                          fontSize={["sm", "sm", "lg", "2xl"]}
+                          key={nft.id}
+                          variant="solid"
+                          colorScheme="blue"
+                          className={styles.tag__info}
+                        >
+                          Token ID: <b>{nft.tokenId}</b>
+                        </Tag>
+                        <Tag
+                          size={["sm", "md", "lg", "md"]}
+                          fontSize={["sm", "sm", "lg", "2xl"]}
+                          key={nft.nft}
+                          variant="solid"
+                          colorScheme="blue"
+                          cursor="pointer"
+                          _hover={{ bg: "blue.900" }}
+                          className={styles.tag__info}
+                        >
+                          <Popover arrowPadding={2}>
+                            <PopoverTrigger>
+                              <TagLabel>Owner</TagLabel>
+                            </PopoverTrigger>
+                            <PopoverContent>
+                              <PopoverArrow />
+                              <PopoverCloseButton />
+                              <PopoverHeader color="black">
+                                NFT Address: {nft.nft}
+                              </PopoverHeader>
+                              <PopoverBody color="black">
+                                Seller: {nft.seller}
+                              </PopoverBody>
+                            </PopoverContent>
+                          </Popover>
+                        </Tag>
+                      </HStack>
+                    </div>
+                    <br />
+                    <Buy id={nft.id} token={nft.price} />
+                    <br />
                   </div>
-                  <br />
-                  <Buy id={nft.id} token={nft.price} />
                 </div>
               );
             })}
