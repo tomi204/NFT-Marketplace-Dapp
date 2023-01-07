@@ -32,6 +32,7 @@ import Navbar from "./../components/navbar/Navbar";
 import Balance from "./../components/api/Balance";
 import Footer from "./../components/footer/Footer";
 import MobileNav from "./../components/mobileNav/MobileNav";
+import { Cancel } from "../components/api/CancelSell";
 
 const Wallet = () => {
   const mounted = useIsMounted();
@@ -51,13 +52,16 @@ const Wallet = () => {
         {isConnected ? (
           <div className={styles.container}>
             <Button colorScheme="blue" variant="outline">
-              {address}
+              Your address
+              <br />
+              {address?.substring(0, 15) + "..."}
             </Button>
             <br />
             {mounted ? <Balance NFT={address} /> : null}
           </div>
         ) : (
-          <div>
+          <div className={styles.desconectado}>
+            <br />
             <Heading textAlign={"center"} size="md">
               Connect your wallet
             </Heading>
@@ -90,6 +94,7 @@ const Wallet = () => {
                     </CardBody>
                     <Divider />
                     <CardFooter>
+                      <Cancel id={item.id} />
                       <a href={`/product/${item.id}`}>
                         <Button variant="ghost" colorScheme="blue">
                           View More

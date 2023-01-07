@@ -1,29 +1,12 @@
 .cardDiv {
   display: grid;
   justify-content: space-between;
-
   grid-template-columns: repeat(3, 1fr);
   margin-top: 4%;
 }
 
-@media screen and (max-width: 868px) {
-  .cardDiv {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media screen and (max-width: 568px) {
-  .cardDiv {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .walletPage {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 10%;
-  }
-}
 .container {
-  margin-top: 6%;
+  margin-top: 7%;
   display: flex;
   position: relative;
   width: 50%;
@@ -49,4 +32,33 @@
   border-radius: 20px;
   margin: 5%;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+}
+.desconectado {
+  margin-top: 15%;
+  color: rgb(51, 0, 255);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 868px) {
+  .cardDiv {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 768px) {
+  .cardDiv {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .container {
+    margin-top: 26%;
+
+    width: 30%;
+    height: 20%;
+  }
+  .walletPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10%;
+  }
 }

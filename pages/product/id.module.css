@@ -23,8 +23,8 @@
 }
 @media screen and (max-width: 768px) {
   .NFTDiv {
-    width: 75%;
-    margin-top: 15%;
+    width: 95%;
+    margin-top: 45%;
   }
   .imgNft {
     width: 70%;
@@ -33,8 +33,8 @@
     font-size: xx-small;
   }
   .nftData {
-    width: 90%;
-    font-size: small;
+    width: 100%;
+
     display: grid;
     align-items: center;
     flex-direction: column;
