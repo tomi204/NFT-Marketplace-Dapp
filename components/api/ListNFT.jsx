@@ -27,6 +27,7 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
+import { parseEther } from "ethers/lib/utils.js";
 export const Sell = () => {
   const { address, isConnected } = useAccount();
   const [number, setNumber] = useState(0);
@@ -36,11 +37,20 @@ export const Sell = () => {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
 
+  function parsePrice() {
+    if (price > "0") {
+      const priceInWei = ethers.utils.parseEther(price);
+      return priceInWei;
+    }
+  }
+  console.log(parsePrice(), "price parsedd");
+
   const { config } = usePrepareContractWrite({
     address: contractAdress,
     chainId: 5,
     overrides: {
       from: address,
+      gasLimit: 1000000,
     },
     abi: [
       {
@@ -82,7 +92,7 @@ export const Sell = () => {
         type: "function",
       },
     ],
-    args: [nft, parseInt(number), parseInt(price), name, desc, tokenURI],
+    args: [nft, parseInt(number), parsePrice(), name, desc, tokenURI],
     enabled: [nft, number, price, name, desc, tokenURI],
     functionName: "listNFT",
   });

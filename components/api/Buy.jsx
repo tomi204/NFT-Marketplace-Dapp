@@ -1,6 +1,6 @@
 import React from "react";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-import { Button } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button } from "@chakra-ui/react";
 
 export const Buy = (id, token) => {
   const { address, isConnected } = useAccount();
@@ -38,7 +38,34 @@ export const Buy = (id, token) => {
       console.log(data);
     },
   });
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  const { data, isLoading, isSuccess, write, isError } =
+    useContractWrite(config);
+
+  if (isError) {
+    return (
+      <>
+        <Alert status="error">
+          <AlertIcon />
+          Error
+          {data}
+        </Alert>
+      </>
+    );
+  }
+  if (isSuccess) {
+    <Alert
+      status="success"
+      variant="subtle"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
+      height="200px"
+    >
+      <AlertIcon />
+      Buyed successfully
+    </Alert>;
+  }
 
   return (
     <>
@@ -50,6 +77,7 @@ export const Buy = (id, token) => {
           hoverColor="blue.1200"
           isLoading={isLoading}
           loadingText="Buying"
+          fontSize={{ base: "small", md: "md", lg: "lg" }}
           onClick={() => write?.()}
         >
           BUY NFT

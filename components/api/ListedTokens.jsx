@@ -109,7 +109,7 @@ export function GetAllItems() {
           tokenId: item[2]?.toString(),
           seller: item[3],
           sold: item[4],
-          price: item[5]?.toNumber(),
+          price: item[5],
           name: item[6],
           desc: item[7],
           tokenURI: item[8],

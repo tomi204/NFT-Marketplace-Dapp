@@ -50,7 +50,7 @@ export const Cancel = (id, token) => {
   if (isError) {
     return (
       <>
-        <Alert status="error">
+        <Alert status="error" fontSize={{ base: "small", md: "md", lg: "lg" }}>
           <AlertIcon />
           Error
           {data}
@@ -66,7 +66,7 @@ export const Cancel = (id, token) => {
       alignItems="center"
       justifyContent="center"
       textAlign="center"
-      height="200px"
+      fontSize={{ base: "small", md: "md", lg: "lg" }}
     >
       <AlertIcon />
       Cancelled sucessfully
@@ -81,6 +81,7 @@ export const Cancel = (id, token) => {
           disabled={isSuccess}
           colorScheme="blue"
           hoverColor="blue.1200"
+          fontSize={{ base: "small", md: "md", lg: "lg" }}
           isLoading={isLoading}
           loadingText="Canceling"
           onClick={() => write?.()}
