@@ -17,7 +17,7 @@ import {
   NumberInputStepper,
 } from "@chakra-ui/react";
 import ApproveMarketplace from "./ApproveMarketplace";
-import { FaEthereum } from "react-icons/fa";
+import { FaDollarSign, FaEthereum } from "react-icons/fa";
 import { CheckIcon } from "@chakra-ui/icons";
 import styles from "../../styles/api.module.css";
 import contractAdress from "./ContractAdress";
@@ -37,12 +37,25 @@ export const Sell = () => {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
 
+  const [ethPrice, setEthPrice] = useState(0);
+  const getEthPrice = async () => {
+    const response = await fetch("https://api.coinlore.net/api/ticker/?id=80");
+    const data = await response.json(); // Extracting data as a JSON Object from the response
+    const parseNumber1 = data[0].price_usd;
+
+    setEthPrice(parseNumber1);
+  };
+
+  useEffect(() => {
+    getEthPrice();
+  }, []);
   function parsePrice() {
     if (price > "0") {
       const priceInWei = ethers.utils.parseEther(price);
       return priceInWei;
     }
   }
+
   console.log(parsePrice(), "price parsedd");
 
   const { config } = usePrepareContractWrite({
@@ -146,10 +159,21 @@ export const Sell = () => {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
+              <InputRightElement
+                alignItems={"center"}
+                justifyContent={"center"}
+                width={"25%"}
+              >
+                <FaDollarSign />
+                {(price * ethPrice)?.toFixed(0)}
+              </InputRightElement>
             </InputGroup>
             {/* token id */}
             <br />
             <InputGroup size="sm" className={styles.input}>
+              <InputLeftElement pointerEvents="none" color="gray.300">
+                ID
+              </InputLeftElement>
               <Input
                 borderTop={"none"}
                 borderRight={"none"}
