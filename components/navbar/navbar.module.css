@@ -1,10 +1,12 @@
 .mainDiv {
   display: flex;
   flex: 1;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   width: 100%;
-
+  position: fixed;
+  left: 0;
   border-bottom: 3px solid #eaeaea;
+  background-color: #eaeaea;
   justify-content: space-around;
   align-items: center;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
