@@ -12,6 +12,7 @@ import {
   Heading,
   Stack,
   Text,
+  Container,
 } from "@chakra-ui/react";
 import { ethers } from "ethers";
 import React from "react";
@@ -44,7 +45,14 @@ const Product = () => {
       ) : (
         <div className={styles.mainCard}>
           {itemsFind.map((item) => (
-            <Card maxW="sm" key={item.id} justifyContent={"center"}>
+            <Card
+              maxW="sm"
+              key={item.id}
+              justifyContent={"center"}
+              margin={"10%"}
+              borderRadius={"lg"}
+              boxShadow={"dark-lg"}
+            >
               <CardBody>
                 <img
                   src={item.tokenURI}
@@ -55,9 +63,17 @@ const Product = () => {
                 <Stack mt="6" spacing="3">
                   <Heading size="md">{item.name}</Heading>
                 </Stack>
-                <Text color="blue.600" fontSize="2xl" justifyContent={"center"}>
-                  <FaEthereum /> {ethers.utils.formatEther(item.price)}
-                </Text>
+                <br />
+
+                <Container
+                  color="blue.600"
+                  className={styles.precio}
+                  fontSize="2xl"
+                  width={"100%"}
+                >
+                  <FaEthereum className={styles.eth} />
+                  {ethers.utils.formatEther(item.price)?.substring(0, 9)}
+                </Container>
               </CardBody>
               <Divider />
               <CardFooter>
