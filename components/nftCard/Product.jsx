@@ -68,8 +68,8 @@ const Product = () => {
                 <Container
                   color="blue.600"
                   className={styles.precio}
-                  fontSize="2xl"
                   width={"100%"}
+                  fontSize={[15, 17, 18, 23]}
                 >
                   <FaEthereum className={styles.eth} />
                   {ethers.utils.formatEther(item.price)?.substring(0, 9)}

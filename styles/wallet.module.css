@@ -1,6 +1,6 @@
 .cardDiv {
   display: grid;
-  justify-content: space-between;
+  justify-content: space-evenly;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 4%;
 }

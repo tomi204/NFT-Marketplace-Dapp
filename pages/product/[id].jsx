@@ -60,7 +60,7 @@ const ItemID = () => {
       <MobileNav />
 
       {bool ? (
-        <div>
+        <div className={styles.containerID}>
           {itemsFind
             ?.filter((item) => {
               return item.id === itemId;
@@ -76,7 +76,7 @@ const ItemID = () => {
                       alt={nft.desc}
                     />
 
-                    <div>
+                    <div className={styles.cardContent}>
                       <Heading
                         size={["sm", "md", "lg", "md"]}
                         fontSize={["sm", "sm", "lg", "2xl"]}
