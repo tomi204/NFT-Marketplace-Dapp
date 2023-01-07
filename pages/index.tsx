@@ -5,7 +5,7 @@ import Navbar from "./../components/navbar/Navbar";
 import Footer from "./../components/footer/Footer";
 import { useIsMounted } from "./../components/utils/mounted";
 import Product from "./../components/nftCard/Product";
-
+import MobileNav from "./../components/mobileNav/MobileNav";
 const Home: NextPage = () => {
   const mounted = useIsMounted();
   return (
@@ -16,6 +16,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+
+      <MobileNav />
       <main className={styles.main}>{mounted ? <Product /> : null}</main>
       <Footer />
     </div>

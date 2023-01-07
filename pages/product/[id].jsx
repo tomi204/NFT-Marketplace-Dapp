@@ -23,6 +23,7 @@ import styles from "./id.module.css";
 import { FaDollarSign, FaEthereum } from "react-icons/fa";
 import { ethers } from "ethers";
 import { Buy } from "../../components/api/Buy";
+import MobileNav from "../../components/mobileNav/MobileNav";
 
 const ItemID = () => {
   const mounted = useIsMounted();
@@ -56,6 +57,8 @@ const ItemID = () => {
   return (
     <div>
       <Navbar />
+      <MobileNav />
+
       {bool ? (
         <div>
           {itemsFind

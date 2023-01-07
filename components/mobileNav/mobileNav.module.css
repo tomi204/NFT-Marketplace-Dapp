@@ -1,0 +1,21 @@
+.mobileNav {
+  display: none;
+  padding: 1rem 1rem;
+  width: 100%;
+  top: 0;
+  position: fixed;
+  left: 0;
+  z-index: 4;
+  justify-content: space-between;
+  align-items: center;
+}
+.connectBtn {
+  display: flex;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .mobileNav {
+    display: flex;
+  }
+}

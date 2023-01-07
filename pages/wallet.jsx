@@ -31,6 +31,7 @@ import { useAccount } from "wagmi";
 import Navbar from "./../components/navbar/Navbar";
 import Balance from "./../components/api/Balance";
 import Footer from "./../components/footer/Footer";
+import MobileNav from "./../components/mobileNav/MobileNav";
 
 const Wallet = () => {
   const mounted = useIsMounted();
@@ -46,6 +47,7 @@ const Wallet = () => {
     return (
       <div className={styles.walletPage}>
         <Navbar />
+        <MobileNav />
         {isConnected ? (
           <div className={styles.container}>
             <Button colorScheme="blue" variant="outline">
