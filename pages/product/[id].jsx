@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useIsMounted } from "./../../components/utils/mounted";
 import { GetAllItems } from "./../../components/api/ListedTokens";
 import { useRouter } from "next/router";
@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { Heading, Text } from "@chakra-ui/react";
 import styles from "./id.module.css";
-import { FaEthereum } from "react-icons/fa";
+import { FaDollarSign, FaEthereum } from "react-icons/fa";
 import { ethers } from "ethers";
 import { Buy } from "../../components/api/Buy";
 
@@ -33,6 +33,20 @@ const ItemID = () => {
   const bool = itemsFind?.some((item) => {
     return item.id === itemId;
   });
+  const [ethPrice, setEthPrice] = useState(0);
+  const getEthPrice = async () => {
+    const response = await fetch("https://api.coinlore.net/api/ticker/?id=80");
+    const data = await response.json(); // Extracting data as a JSON Object from the response
+    const parseNumber1 = data[0].price_usd;
+
+    setEthPrice(parseNumber1);
+  };
+
+  useEffect(() => {
+    getEthPrice();
+  }, []);
+
+  console.log(ethPrice, " ethPrice");
 
   return (
     <div>
@@ -66,7 +80,27 @@ const ItemID = () => {
                       >
                         <FaEthereum />
                         <TagLabel>
-                          <b>{ethers.utils.formatEther(nft.price)}</b>
+                          <b>
+                            {ethers.utils
+                              .formatEther(nft.price)
+                              ?.substring(0, 9)}
+                          </b>
+                        </TagLabel>
+                      </Tag>
+                      <Tag
+                        size="lg"
+                        key={nft.price}
+                        variant="solid"
+                        colorScheme="blue"
+                        className={styles.tag__info}
+                      >
+                        <FaDollarSign />
+                        <TagLabel>
+                          <b>
+                            {(
+                              ethers.utils.formatEther(nft.price) * ethPrice
+                            ).toFixed(5)}
+                          </b>
                         </TagLabel>
                       </Tag>
                       <Tag
