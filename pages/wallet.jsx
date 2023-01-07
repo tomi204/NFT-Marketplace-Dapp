@@ -103,7 +103,6 @@ const Wallet = () => {
             <h1>You dont have NFTs listed</h1>
           </div>
         )}
-        <Footer />
       </div>
     );
 };

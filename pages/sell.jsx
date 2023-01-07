@@ -9,9 +9,7 @@ const SellNFT = () => {
   return (
     <div className={styles.pageSell}>
       <Navbar />
-      <br />
-      {mounted ? <Sell /> : null}
-      <Footer />
+      <div className={styles.sellDiv}>{mounted ? <Sell /> : null}</div>
     </div>
   );
 };

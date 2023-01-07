@@ -3,8 +3,10 @@
   flex: 1;
   padding: 1rem 1rem;
   width: 100%;
+  top: 0;
   position: fixed;
   left: 0;
+  z-index: 4;
   border-bottom: 3px solid #eaeaea;
   background-color: #eaeaea;
   justify-content: space-around;

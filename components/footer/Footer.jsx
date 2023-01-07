@@ -17,9 +17,9 @@ const Footer = () => {
       <a href="https://twitter.com/tomiioliver">
         <FaTwitter className={styles.icon} />
       </a>
-      <a target="_blank" rel="noopener noreferrer">
-        Made with ❤️ by Tomi204
-      </a>
+      <li className={styles.footerContent}>
+        <a>Made with ❤️ by Tomi204</a>
+      </li>
       <a href="https://www.linkedin.com/in/tomi204/">
         <FaLinkedinIn className={styles.icon} />
       </a>
