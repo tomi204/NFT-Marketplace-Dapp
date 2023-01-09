@@ -4,6 +4,8 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
+  min-width: none;
+
   margin-top: 6%;
   box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
 }
@@ -13,16 +15,15 @@
   align-items: center;
 }
 .imgNft {
-  width: 40%;
-  height: 10%;
-  object-fit: cover;
+  width: 50%;
+  height: 50%;
 }
 .cardContent {
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  width: 50%;
+  width: 95%;
 }
 .containerID {
   display: flex;
@@ -30,6 +31,8 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
+  margin-top: 5%;
+  height: 100%;
 }
 @media screen and (max-width: 768px) {
   .NFTDiv {
