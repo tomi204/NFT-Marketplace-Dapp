@@ -8,6 +8,7 @@ import Product from "./../components/nftCard/Product";
 import MobileNav from "./../components/mobileNav/MobileNav";
 const Home: NextPage = () => {
   const mounted = useIsMounted();
+  
   return (
     <div className={styles.container}>
       <Head>
