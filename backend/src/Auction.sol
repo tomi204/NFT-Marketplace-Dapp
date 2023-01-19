@@ -104,7 +104,6 @@ contract AuctionMarket is ReentrancyGuard, Ownable {
         if (Item.highestBidder != msg.sender) {
             Item.highestBidder.transfer(Item.price);
         }
-        
         Item.highestBidder = payable(msg.sender);
         Item.price = msg.value;
         emit bid(
@@ -115,5 +114,27 @@ contract AuctionMarket is ReentrancyGuard, Ownable {
             Item.price,
             Item.endTime
         );
-    }  
+    } 
+
+    function closeAuction(uint256 _itemId) public nonReentrant {
+        item storage Item = items[_itemId];
+        require(Item.endTime < block.timestamp, "auction is not over");
+        require(
+            Item.highestBidder != address(0),
+            "there is no highest bidder"
+        );
+         IERC721 nft = IERC721(Item.nftAddress);
+        require(Item.seller == msg.sender, "not the seller");
+        if(nft.getApproved(Item.tokenId) == address(this)){
+            nft.safeTransferFrom(Item.seller, Item.highestBidder, Item.tokenId);
+        Item.seller.transfer(Item.price);
+        delete items[_itemId];
+        }
+        else{
+            revert("contract is not approved to transfer nft");
+            delete items[_itemId];
+        }
+        
+    }
+
 }
