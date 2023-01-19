@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  erc721ABI,
   paginatedIndexesConfig,
   useContractInfiniteReads,
   useContractRead,
@@ -9,6 +10,7 @@ import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import contractAdress from "./ContractAdress";
+import { useContractRead } from "wagmi";
 const itemData = {};
 const mlootContractConfig = {
   address: "0x88Ab79411cDc6A17cA1D8233A505FC4d41BC7f80",
@@ -99,6 +101,14 @@ export function GetAllItems() {
       { start: 1, perPage: 100, direction: "increment" }
     ),
   });
+
+   function tokenURIs(tokenId, nft) {
+    const contract = new ethers.Contract(nft, erc721ABI);
+    const tokenURI = contract.tokenURI(tokenId);
+    return tokenURI;
+   }
+  
+  
   //get items from data and return in a new array
   const result = data?.pages?.map((page) => {
     return page?.map((item) => {
@@ -112,7 +122,8 @@ export function GetAllItems() {
           price: item[5],
           name: item[6],
           desc: item[7],
-          tokenURI: item[8],
+          // tokenURI: item[8],
+          tokenURI: tokenURIs(item[2]?.toString(), item[1]),
         };
       }
       return itemData;
