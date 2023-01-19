@@ -1,12 +1,14 @@
 import React from "react";
 import {
   erc721ABI,
+  goerli,
   paginatedIndexesConfig,
   useContractInfiniteReads,
   useContractRead,
 } from "wagmi";
 import { BigNumber, ethers } from "ethers";
 import { useAccount } from "wagmi";
+import TokenURI from "./TokenURI.jsx";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import contractAdress from "./ContractAdress";
@@ -101,17 +103,14 @@ export function GetAllItems() {
     ),
   });
 
-   function tokenURIs(tokenId, nft) {
-    const contract = new ethers.Contract(nft, erc721ABI);
-    const tokenURI = contract.tokenURI(tokenId);
-    return tokenURI;
-   }
-  
+   
+
+
   
   //get items from data and return in a new array
   const result = data?.pages?.map((page) => {
     return page?.map((item) => {
-      if (item?.id != 0 || item?.id != undefined || item?.id != null) {
+      if (!isLoading || item?.id != 0 || item?.id != null) {
         itemData = {
           id: item[0]?.toNumber(),
           nft: item[1],
@@ -121,10 +120,11 @@ export function GetAllItems() {
           price: item[5],
           name: item[6],
           desc: item[7],
-          // tokenURI: item[8],
-          tokenURI: tokenURIs(item[2]?.toString(), item[1]),
+          //  tokenURI: item[8],
+         tokenURI: TokenURI(item[2]?.toNumber(), item[1]),
         };
       }
+      console.log(itemData, "itemData");
       return itemData;
     });
   });
