@@ -10,7 +10,6 @@ import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import contractAdress from "./ContractAdress";
-import { useContractRead } from "wagmi";
 const itemData = {};
 const mlootContractConfig = {
   address: "0x88Ab79411cDc6A17cA1D8233A505FC4d41BC7f80",
