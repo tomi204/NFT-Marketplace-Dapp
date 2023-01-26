@@ -103,10 +103,6 @@ export function GetAllItems() {
     ),
   });
 
-   
-
-
-  
   //get items from data and return in a new array
   const result = data?.pages?.map((page) => {
     return page?.map((item) => {
@@ -120,8 +116,8 @@ export function GetAllItems() {
           price: item[5],
           name: item[6],
           desc: item[7],
-          //  tokenURI: item[8],
-         tokenURI: TokenURI(item[2]?.toNumber(), item[1]),
+          tokenURI: item[8],
+          //  tokenURI: TokenURI(item[2]?.toNumber(), item[1]),
         };
       }
       console.log(itemData, "itemData");

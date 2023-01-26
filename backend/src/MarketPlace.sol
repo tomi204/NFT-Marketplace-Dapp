@@ -149,4 +149,77 @@ contract marketPlace is ReentrancyGuard {
         item storage itemsList = items[_itemId]; // get specific item from the items mapping
         return itemsList; // return the item
     }
+
+
+    //dev AUCTION CODE
+
+    uint256 public auctionCount; // auction count
+
+    //@dev struct of auctions
+    
+    struct auction {
+        uint256 id;
+        address nft;
+        uint256 tokenId;
+        address payable seller;
+        bool sold;
+        uint256 price;
+        uint256 endTime;
+        string name;
+        string description;
+        string image;
+    }
+
+    //@dev mappings
+    mapping(uint256 => auction) public auctions; // auction id to auction
+    mapping(uint256 => uint256) _securityAuction; // security front running
+
+    //@dev events
+    event listedAuction(
+        uint256 id,
+        address nft,
+        uint256 tokenId,
+        uint256 price,
+        address seller
+    );
+
+    //@dev functions
+
+    function listNFTAuction(
+        address _nft,
+        uint256 _tokenId,
+        uint256 _price,
+        uint256 _endTime,
+        string memory _name,
+        string memory _description,
+        string memory _image
+    ) public nonReentrant {
+        require(_price > 0, "price must be greater than 0");
+        IERC721 nft = IERC721(_nft); // cast address to IERC721
+        if (nft.ownerOf(_tokenId) == msg.sender) {
+            // check if the msg.sender is the owner of the NFT
+
+            if (nft.getApproved(_tokenId) != address(this)) {
+                revert NotApprovedForMarketplace();
+            }
+            auctionCount++; // increment the auction count
+            auctions[auctionCount] = auction( // add the auction to the auctions mapping
+                auctionCount,
+                _nft,
+                _tokenId,
+                payable(msg.sender),
+                false,
+                _price,
+                _endTime,
+                _name,
+                _description,
+                _image
+            );
+            emit listedAuction(auctionCount, address(_nft), _tokenId, _price, msg.sender); // emit the listed event
+        } else {
+            revert("you are not the owner of this NFT");
+        }
+    }
+
+    //@dev function to create auction
 }
