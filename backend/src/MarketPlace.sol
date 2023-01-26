@@ -165,6 +165,7 @@ contract marketPlace is ReentrancyGuard {
         bool sold;
         uint256 price;
         uint256 endTime;
+        address highestBidder;
         string name;
         string description;
         string image;
@@ -173,6 +174,23 @@ contract marketPlace is ReentrancyGuard {
     //@dev mappings
     mapping(uint256 => auction) public auctions; // auction id to auction
     mapping(uint256 => uint256) _securityAuction; // security front running
+
+//@dev modifiers
+
+ modifier securityFrontRunningAuction(uint256 _itemId) {
+        auction storage Item = auctions[_itemId];
+        require(
+            _security[_itemId] == 0 || _security[_itemId] > block.number,
+            "error security"
+        );
+
+        _security[_itemId] = block.number;
+        _;
+    }
+
+
+
+
 
     //@dev events
     event listedAuction(
@@ -184,6 +202,9 @@ contract marketPlace is ReentrancyGuard {
     );
 
     //@dev functions
+
+
+    //@dev function to create auction
 
     function listNFTAuction(
         address _nft,
@@ -211,6 +232,7 @@ contract marketPlace is ReentrancyGuard {
                 false,
                 _price,
                 _endTime,
+                address(0),
                 _name,
                 _description,
                 _image
@@ -221,5 +243,48 @@ contract marketPlace is ReentrancyGuard {
         }
     }
 
-    //@dev function to create auction
+    //@dev bid function
+
+    function bidAuction(uint256 _auctionId)
+        public
+        payable
+        nonReentrant
+        securityFrontRunningAuction(_auctionId)
+    {
+        auction storage Auction = auctions[_auctionId]; // get the auction from the auctions mapping
+        require(Auction.sold == false, "auction already sold"); // check if the auction is already sold
+        require(msg.value > Auction.price, "insufficient funds"); // check if the msg.value is greater than or equal to the auction price
+        require(block.timestamp < Auction.endTime, "auction has ended"); // check if the auction has ended
+
+        if(Auction.highestBidder != msg.sender){
+            payable(Auction.highestBidder).transfer(Auction.price); // transfer the seller amount to the seller
+        }
+        Auction.highestBidder = msg.sender; // new best bidder
+        Auction.price = msg.value; // new auction price      
+    }
+
+   function closeOffering(uint256 _itemId)
+        external
+      
+        securityFrontRunningAuction(_itemId)
+    {
+        auction storage ItemAuction = auctions[_itemId];
+        require(
+            msg.sender == ItemAuction.seller,
+            "you dont are the owner of the nft"
+        );
+        require(ItemAuction.endTime < block.timestamp, "error time is not over");
+        require(ItemAuction.sold == false, "error nft sold");
+        ItemAuction.sold = true;
+        
+       ItemAuction.seller.transfer(ItemAuction.price); // transfer the seller amount to the seller
+        IERC721(ItemAuction.nft).transferFrom(
+            ItemAuction.seller,
+            ItemAuction.highestBidder,
+            ItemAuction.tokenId
+        );
+        
+        delete (auctions[_itemId]);
+    }
+
 }
