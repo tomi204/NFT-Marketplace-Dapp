@@ -9,13 +9,11 @@ error NotApprovedForMarketplace();
 contract marketPlace is ReentrancyGuard {
     //@dev state variables
     address payable public immutable owner; //owner of the contract
-    uint64 public immutable fee; //marketplace fee
     uint256 public itemCount; // item count
 
     //@dev constructor
-    constructor(uint64 _fee) {
+    constructor() {
         owner = payable(msg.sender);
-        fee = _fee;
     }
 
     //@dev struct of items
@@ -116,11 +114,8 @@ contract marketPlace is ReentrancyGuard {
                 msg.sender,
                 Item.tokenId
             ); // trasnfer the nft to the buyer        Item.sold = true; // set the item sold state to true
-        uint256 feeAmount = (Item.price * fee) / 100; // calculate the fee amount
-        uint256 sellerAmount = Item.price - feeAmount; // calculate the seller amount
-        payable(owner).transfer(feeAmount); // transfer the fee amount to the owner
+        uint256 sellerAmount = Item.price; // calculate the seller amount
         payable(Item.seller).transfer(sellerAmount); // transfer the seller amount to the seller
-        delete _security[_itemId]; // delete the security front running
         delete items[_itemId]; // delete the item from the items mapping
     }
 
@@ -163,9 +158,10 @@ contract marketPlace is ReentrancyGuard {
         uint256 tokenId;
         address payable seller;
         bool sold;
+        uint256 startPrice;
         uint256 price;
         uint256 endTime;
-        address highestBidder;
+        address payable highestBidder;
         string name;
         string description;
         string image;
@@ -183,14 +179,9 @@ contract marketPlace is ReentrancyGuard {
             _security[_itemId] == 0 || _security[_itemId] > block.number,
             "error security"
         );
-
         _security[_itemId] = block.number;
         _;
     }
-
-
-
-
 
     //@dev events
     event listedAuction(
@@ -231,8 +222,9 @@ contract marketPlace is ReentrancyGuard {
                 payable(msg.sender),
                 false,
                 _price,
+                _price,
                 _endTime,
-                address(0),
+                payable(address(0)),
                 _name,
                 _description,
                 _image
@@ -259,7 +251,7 @@ contract marketPlace is ReentrancyGuard {
         if(Auction.highestBidder != msg.sender){
             payable(Auction.highestBidder).transfer(Auction.price); // transfer the seller amount to the seller
         }
-        Auction.highestBidder = msg.sender; // new best bidder
+        Auction.highestBidder = payable(msg.sender); // new best bidder
         Auction.price = msg.value; // new auction price      
     }
 
@@ -277,7 +269,7 @@ contract marketPlace is ReentrancyGuard {
         require(ItemAuction.sold == false, "error nft sold");
         ItemAuction.sold = true;
         
-       ItemAuction.seller.transfer(ItemAuction.price); // transfer the seller amount to the seller
+      payable(ItemAuction.seller).transfer(ItemAuction.price); // transfer the seller amount to the seller
         IERC721(ItemAuction.nft).transferFrom(
             ItemAuction.seller,
             ItemAuction.highestBidder,
@@ -285,6 +277,18 @@ contract marketPlace is ReentrancyGuard {
         );
         
         delete (auctions[_itemId]);
+    }
+
+    //@dev cancel function
+
+    function cancelAuction(uint256 _itemId) public nonReentrant securityFrontRunningAuction(_itemId) {
+        auction storage Item = auctions[_itemId]; // get the auction from the auctions mapping
+        require(Item.sold == false, "auction already sold"); // check if the auction is already sold
+        require(Item.seller == msg.sender, "you are not the seller"); // check if the msg.sender is the seller
+        if(Item.startPrice != Item.price){
+            payable(Item.highestBidder).transfer(Item.price); // transfer the seller amount to the seller
+        }
+        delete auctions[_itemId]; // delete the auction from the auctions mapping
     }
 
 }

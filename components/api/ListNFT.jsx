@@ -184,7 +184,6 @@ export const Sell = () => {
                 borderColor={"black"}
                 type={"number"}
                 placeholder="NFT TOKEN ID"
-                value={number}
                 onChange={(e) => setNumber(e.target.value)}
               />
             </InputGroup>

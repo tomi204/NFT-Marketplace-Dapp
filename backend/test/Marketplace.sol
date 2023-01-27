@@ -9,14 +9,6 @@ contract MarketplaceTest is Test{
     
     function test() public {
         MarketPlace  = new marketPlace(0);
-        MarketPlace.listItem(
-            address(this),
-            1,
-            100,
-            "test",
-            "test",
-            "test"
-        );
-        marketPlace.buyItem(1);
+        MarketPlace.listNFT(address(0), 0, 50, "name", "description", "image");
     }
 }
