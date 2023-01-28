@@ -236,7 +236,6 @@ export const Sell = () => {
             {/* https form */}
 
             <InputGroup size="sm" className={styles.input}>
-              <InputLeftAddon>https://</InputLeftAddon>
               <Input
                 borderTop={"none"}
                 borderRight={"none"}
@@ -247,7 +246,6 @@ export const Sell = () => {
                 onChange={(e) => deploy(e)}
                 value={tokenURI}
               />
-              <InputRightAddon>.com</InputRightAddon>
             </InputGroup>
             <br />
             <ApproveMarketplace NFT={nft} tokenID={number} />
