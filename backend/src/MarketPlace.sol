@@ -62,6 +62,15 @@ contract marketPlace is ReentrancyGuard {
         uint256 price,
         address seller
     );
+    
+    event sold(
+        uint256 id,
+        address nft,
+        uint256 tokenId,
+        uint256 price,
+        address seller,
+        address buyer
+    );
 
     //@dev functions
 
@@ -118,6 +127,14 @@ contract marketPlace is ReentrancyGuard {
             ); // trasnfer the nft to the buyer        Item.sold = true; // set the item sold state to true
         uint256 sellerAmount = Item.price; // calculate the seller amount
         payable(Item.seller).transfer(sellerAmount); // transfer the seller amount to the seller
+        emit sold(
+            Item.id,
+            Item.nft,
+            Item.tokenId,
+            Item.price,
+            Item.seller,
+            msg.sender
+        ); // emit the sold event
         delete items[_itemId]; // delete the item from the items mapping
     }
 
@@ -200,6 +217,14 @@ contract marketPlace is ReentrancyGuard {
         uint256 price,
         address seller
     );
+    event soldAuction(
+        uint256 id,
+        address nft,
+        uint256 tokenId,
+        uint256 price,
+        address seller,
+        address buyer
+    );
 
     //////////////////////@dev functions auction
 
@@ -277,12 +302,12 @@ contract marketPlace is ReentrancyGuard {
         require(ItemAuction.endTime < block.timestamp, "error time is not over");
         require(ItemAuction.sold == false, "error nft sold");
         IERC721 nft = IERC721(ItemAuction.nft);
-        if (nft.getApproved(ItemAuction.tokenId) != address(this)) {
-            if(ItemAuction.highestBidder != address(0)){
+        if (nft.getApproved(ItemAuction.tokenId) != address(this)) {// if the nft is not approved for the marketplace
+            if(ItemAuction.highestBidder != address(0)){ // if there is a highest bidder
                 payable(ItemAuction.highestBidder).transfer(ItemAuction.price); // transfer the seller amount to the seller
             }
+          
             delete (auctions[_itemId]);
-
             revert NotApprovedForMarketplace();
             
         }
@@ -294,7 +319,14 @@ contract marketPlace is ReentrancyGuard {
             ItemAuction.highestBidder,
             ItemAuction.tokenId
         );
-        
+          emit soldAuction(
+                ItemAuction.id,
+                ItemAuction.nft,
+                ItemAuction.tokenId,
+                ItemAuction.price,
+                ItemAuction.seller,
+                ItemAuction.highestBidder
+            );
         delete (auctions[_itemId]);
     }
     
