@@ -29,6 +29,7 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import { parseEther } from "ethers/lib/utils.js";
+import { calcLength } from "framer-motion";
 const API = process.env.NEXT_PUBLIC_APIKEY;
 
 export const Sell = () => {
@@ -67,14 +68,11 @@ export const Sell = () => {
   const deploy = async (e) => {
     // Push file to lighthouse node
     const output = await lighthouse.upload(e, API, progressCallback);
-    console.log("File Status:", output);
-    setTokenURI("https://gateway.lighthouse.storage/ipfs/" + output.data.Hash);
-
-    console.log(
-      "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
-    );
+    console.log("File Status:", output.data.Hash);
+    const uri = "https://gateway.lighthouse.storage/ipfs/" + output.data.Hash;
+    setTokenURI(uri);
   };
-
+  console.log(tokenURI, "tokenURIiiii");
   console.log(parsePrice(), "price parsedd");
 
   const { config } = usePrepareContractWrite({
@@ -124,7 +122,7 @@ export const Sell = () => {
         type: "function",
       },
     ],
-    args: [nft, parseInt(number), parsePrice(), name, desc, tokenURI],
+    args: [nft, parseInt(number), parsePrice(), name, desc],
     enabled: [nft, number, price, name, desc, tokenURI],
     functionName: "listNFT",
   });
@@ -242,9 +240,7 @@ export const Sell = () => {
                 borderLeft={"none"}
                 type={"file"}
                 borderColor={"black"}
-                placeholder="URL OF NFT IMAGE"
                 onChange={(e) => deploy(e)}
-                value={tokenURI}
               />
             </InputGroup>
             <br />
