@@ -72,8 +72,6 @@ export const Sell = () => {
     const uri = "https://gateway.lighthouse.storage/ipfs/" + output.data.Hash;
     setTokenURI(uri);
   };
-  console.log(tokenURI, "tokenURIiiii");
-  console.log(parsePrice(), "price parsedd");
 
   const { config } = usePrepareContractWrite({
     address: contractAdress,

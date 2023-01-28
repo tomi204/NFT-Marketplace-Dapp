@@ -99,7 +99,9 @@ contract marketPlace is ReentrancyGuard {
         }
     }
 
-    //dev buy function
+    ///@dev buy function
+
+
     function buyNFT(uint256 _itemId)
         public
         payable
@@ -119,7 +121,7 @@ contract marketPlace is ReentrancyGuard {
         delete items[_itemId]; // delete the item from the items mapping
     }
 
-    //@dev cancel function
+    ///@dev cancel function
 
     function cancelSale(uint256 _itemId)
         public
@@ -132,25 +134,26 @@ contract marketPlace is ReentrancyGuard {
         delete items[_itemId]; // delete the item from the items mapping
     }
 
-    //@dev withdraw founds function
+    ///@dev withdraw founds function
 
     function withdrawFunds() public nonReentrant onlyOwner {
         payable(owner).transfer(address(this).balance);
     }
 
-    //@dev get items for front end function
+    ///@dev get items for front end function
 
     function getItems(uint256 _itemId) public view returns (item memory) {
         item storage itemsList = items[_itemId]; // get specific item from the items mapping
         return itemsList; // return the item
     }
 
-
-    //dev AUCTION CODE
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////@dev AUCTION CODE
+////////////////////////////////////////////////////////////////////////////////////
 
     uint256 public auctionCount; // auction count
 
-    //@dev struct of auctions
+    ///@dev struct of auctions
     
     struct auction {
         uint256 id;
@@ -182,8 +185,7 @@ contract marketPlace is ReentrancyGuard {
         _security[_itemId] = block.number;
         _;
     }
-
-    //@dev events
+/////////////////////////////////@dev events
     event listedAuction(
         uint256 id,
         address nft,
@@ -191,11 +193,18 @@ contract marketPlace is ReentrancyGuard {
         uint256 price,
         address seller
     );
+    event bid(
+        uint256 id,
+        address nft,
+        uint256 tokenId,
+        uint256 price,
+        address seller
+    );
 
-    //@dev functions
+    //////////////////////@dev functions auction
 
 
-    //@dev function to create auction
+    ///@dev function to create auction
 
     function listNFTAuction(
         address _nft,
@@ -235,7 +244,7 @@ contract marketPlace is ReentrancyGuard {
         }
     }
 
-    //@dev bid function
+    ///@dev bid function
 
     function bidAuction(uint256 _auctionId)
         public
@@ -252,12 +261,12 @@ contract marketPlace is ReentrancyGuard {
             payable(Auction.highestBidder).transfer(Auction.price); // transfer the seller amount to the seller
         }
         Auction.highestBidder = payable(msg.sender); // new best bidder
-        Auction.price = msg.value; // new auction price      
+        Auction.price = msg.value; // new auction price  
+        emit bid(Auction.id, Auction.nft, Auction.tokenId, Auction.price, Auction.seller); // emit the bid event    
     }
 
    function closeOffering(uint256 _itemId)
         external
-      
         securityFrontRunningAuction(_itemId)
     {
         auction storage ItemAuction = auctions[_itemId];
@@ -267,6 +276,16 @@ contract marketPlace is ReentrancyGuard {
         );
         require(ItemAuction.endTime < block.timestamp, "error time is not over");
         require(ItemAuction.sold == false, "error nft sold");
+        IERC721 nft = IERC721(ItemAuction.nft);
+        if (nft.getApproved(ItemAuction.tokenId) != address(this)) {
+            if(ItemAuction.highestBidder != address(0)){
+                payable(ItemAuction.highestBidder).transfer(ItemAuction.price); // transfer the seller amount to the seller
+            }
+            delete (auctions[_itemId]);
+
+            revert NotApprovedForMarketplace();
+            
+        }
         ItemAuction.sold = true;
         
       payable(ItemAuction.seller).transfer(ItemAuction.price); // transfer the seller amount to the seller
@@ -278,8 +297,9 @@ contract marketPlace is ReentrancyGuard {
         
         delete (auctions[_itemId]);
     }
-
-    //@dev cancel function
+    
+    
+    ///@dev cancel function
 
     function cancelAuction(uint256 _itemId) public nonReentrant securityFrontRunningAuction(_itemId) {
         auction storage Item = auctions[_itemId]; // get the auction from the auctions mapping
