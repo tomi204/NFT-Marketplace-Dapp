@@ -16,6 +16,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/react";
+import lighthouse from "@lighthouse-web3/sdk";
 import ApproveMarketplace from "./ApproveMarketplace";
 import { FaDollarSign, FaEthereum } from "react-icons/fa";
 import { CheckIcon } from "@chakra-ui/icons";
@@ -28,6 +29,8 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import { parseEther } from "ethers/lib/utils.js";
+const API = process.env.NEXT_PUBLIC_APIKEY;
+
 export const Sell = () => {
   const { address, isConnected } = useAccount();
   const [number, setNumber] = useState(0);
@@ -55,6 +58,22 @@ export const Sell = () => {
       return priceInWei;
     }
   }
+  const progressCallback = (progressData) => {
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
+    console.log(percentageDone);
+  };
+
+  const deploy = async (e) => {
+    // Push file to lighthouse node
+    const output = await lighthouse.upload(e, API, progressCallback);
+    console.log("File Status:", output);
+    setTokenURI("https://gateway.lighthouse.storage/ipfs/" + output.data.Hash);
+
+    console.log(
+      "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
+    );
+  };
 
   console.log(parsePrice(), "price parsedd");
 
@@ -222,9 +241,10 @@ export const Sell = () => {
                 borderTop={"none"}
                 borderRight={"none"}
                 borderLeft={"none"}
+                type={"file"}
                 borderColor={"black"}
                 placeholder="URL OF NFT IMAGE"
-                onChange={(e) => setTokenURI(e.target.value)}
+                onChange={(e) => deploy(e)}
                 value={tokenURI}
               />
               <InputRightAddon>.com</InputRightAddon>
