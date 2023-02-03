@@ -72,7 +72,7 @@ const Product = () => {
                   fontSize={[15, 17, 18, 23]}
                 >
                   <FaEthereum className={styles.eth} />
-                  {/* {ethers.utils.formatEther(item.price)?.substring(0, 9)} */}
+                  {ethers.utils.formatEther(item.price)?.substring(0, 9)}
                 </Container>
               </CardBody>
               <Divider />

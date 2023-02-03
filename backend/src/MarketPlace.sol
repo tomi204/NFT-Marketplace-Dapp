@@ -321,7 +321,7 @@ contract marketPlace is ReentrancyGuard {
             // if the nft is not approved for the marketplace
             if (ItemAuction.highestBidder != address(0)) {
                 // if there is a highest bidder
-                payable(ItemAuction.highestBidder).transfer(ItemAuction.price); // transfer the seller amount to the seller
+               payable(ItemAuction.highestBidder).transfer(ItemAuction.price); // transfer the seller amount to the seller
             }
 
             delete (auctions[_itemId]);
