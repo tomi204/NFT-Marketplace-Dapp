@@ -22,7 +22,15 @@ const ApproveMarketplace = (NFT, tokenID) => {
 
   return (
     <div>
-      <Button size={"md"} colorScheme={"blue"} onClick={() => write?.()}>
+      <Button
+        size={"md"}
+        width={"100%"}
+        isLoading={isLoading}
+        height={"30px"}
+        fontSize={"medium"}
+        colorScheme={"blue"}
+        onClick={() => write?.()}
+      >
         Approve Marketplace
       </Button>
     </div>

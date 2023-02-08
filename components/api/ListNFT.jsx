@@ -22,6 +22,7 @@ import { FaDollarSign, FaEthereum } from "react-icons/fa";
 import { CheckIcon } from "@chakra-ui/icons";
 import styles from "../../styles/api.module.css";
 import contractAdress from "./ContractAdress";
+import { useContractEvent } from "wagmi";
 import {
   Alert,
   AlertIcon,
@@ -125,7 +126,56 @@ export const Sell = () => {
     enabled: [nft, number, price, name, desc, tokenURI],
     functionName: "listNFT",
   });
-  const { write } = useContractWrite(config);
+  const { write, isLoading } = useContractWrite(config);
+
+  const [itemListed, setItemListed] = useState(false);
+
+  useContractEvent({
+    address: contractAdress,
+    abi: [
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
+          },
+          {
+            indexed: false,
+            internalType: "address",
+            name: "nft",
+            type: "address",
+          },
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "tokenId",
+            type: "uint256",
+          },
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "price",
+            type: "uint256",
+          },
+          {
+            indexed: false,
+            internalType: "address",
+            name: "seller",
+            type: "address",
+          },
+        ],
+        name: "listed",
+        type: "event",
+      },
+    ],
+    eventName: "listed",
+    listener(itemID, nftAddress, tokenID, price, seller) {
+      setItemListed(true);
+    },
+  });
 
   return (
     <>
@@ -247,9 +297,11 @@ export const Sell = () => {
             <br />
             <Button
               onClick={() => write?.()}
+              isLoading={isLoading}
               colorScheme="blue"
               borderRadius={"10px"}
-              size={"lg"}
+              size={"md"}
+              width={"100%"}
             >
               LIST NFT
             </Button>
@@ -283,6 +335,27 @@ export const Sell = () => {
               connect your wallet to access this function
             </AlertDescription>
           </Alert>
+
+          {itemListed ? (
+            <Alert
+              status="success"
+              style={{
+                width: "50%",
+                height: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <AlertIcon />
+              <AlertTitle>Item listed</AlertTitle>
+              <br />
+              <AlertDescription>
+                your item has been listed on the marketplace
+              </AlertDescription>
+            </Alert>
+          ) : null}
         </div>
       )}
     </>
