@@ -13,6 +13,7 @@ contract marketPlace is ReentrancyGuard {
     address payable public immutable owner; //owner of the contract
     uint256 public itemCount; // item count
 
+
     ////////@dev constructor
     constructor() {
         owner = payable(msg.sender);
@@ -228,7 +229,6 @@ contract marketPlace is ReentrancyGuard {
     );
 
     //////////////////////@dev functions auction
-
     ///@dev function to create auction
 
     function listNFTAuction(

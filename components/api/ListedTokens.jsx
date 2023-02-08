@@ -120,7 +120,6 @@ export function GetAllItems() {
           //  tokenURI: TokenURI(item[2]?.toNumber(), item[1]),
         };
       }
-      console.log(itemData, "itemData");
       return itemData;
     });
   });

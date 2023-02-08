@@ -70,6 +70,7 @@ export const Sell = () => {
     const output = await lighthouse.upload(e, API, progressCallback);
     console.log("File Status:", output.data.Hash);
     const uri = "https://gateway.lighthouse.storage/ipfs/" + output.data.Hash;
+    console.log(uri);
     setTokenURI(uri);
   };
 
