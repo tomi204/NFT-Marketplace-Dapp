@@ -168,7 +168,13 @@ const ItemID = () => {
             })}
         </div>
       ) : (
-        <Alert status="error">
+        <Alert
+          status="error"
+          height={"300px"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          textAlign={"center"}
+        >
           <AlertIcon />
           error 404 item not found
         </Alert>
