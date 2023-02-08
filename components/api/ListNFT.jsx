@@ -122,7 +122,7 @@ export const Sell = () => {
         type: "function",
       },
     ],
-    args: [nft, parseInt(number), parsePrice(), name, desc],
+    args: [nft, parseInt(number), parsePrice(), name, desc, tokenURI],
     enabled: [nft, number, price, name, desc, tokenURI],
     functionName: "listNFT",
   });
