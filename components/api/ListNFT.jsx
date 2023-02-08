@@ -41,7 +41,7 @@ export const Sell = () => {
   const [tokenURI, setTokenURI] = useState("");
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-
+  const [imageUpload, setImageUpload] = useState(false);
   const [ethPrice, setEthPrice] = useState(0);
   const getEthPrice = async () => {
     const response = await fetch("https://api.coinlore.net/api/ticker/?id=80");
@@ -64,6 +64,7 @@ export const Sell = () => {
     let percentageDone =
       100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
     console.log(percentageDone);
+    setImageUpload(true);
   };
 
   const deploy = async (e) => {
@@ -282,16 +283,24 @@ export const Sell = () => {
             <br />
             {/* https form */}
 
-            <InputGroup size="sm" className={styles.input}>
-              <Input
-                borderTop={"none"}
-                borderRight={"none"}
-                borderLeft={"none"}
-                type={"file"}
-                borderColor={"black"}
-                onChange={(e) => deploy(e)}
-              />
-            </InputGroup>
+            {!imageUpload ? (
+              <InputGroup size="sm" className={styles.input}>
+                <Input
+                  borderTop={"none"}
+                  borderRight={"none"}
+                  borderLeft={"none"}
+                  type={"file"}
+                  borderColor={"black"}
+                  onChange={(e) => deploy(e)}
+                />
+              </InputGroup>
+            ) : (
+              <Alert status="success">
+                <AlertIcon />
+                Image Uploaded
+              </Alert>
+            )}
+
             <br />
             <ApproveMarketplace NFT={nft} tokenID={number} />
             <br />
