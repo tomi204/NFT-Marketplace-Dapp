@@ -18,6 +18,9 @@ import {
   useDisclosure,
   Popover,
   Alert,
+  AlertTitle,
+  AlertDescription,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { Heading, Text } from "@chakra-ui/react";
 import styles from "./id.module.css";
@@ -165,22 +168,9 @@ const ItemID = () => {
             })}
         </div>
       ) : (
-        <Alert
-          status="error"
-          variant="subtle"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          textAlign="center"
-          height="200px"
-        >
-          <Alert.Icon boxSize="40px" mr={0} />
-          <Alert.Title mt={4} mb={1} fontSize="lg">
-            This NFT does not exist
-          </Alert.Title>
-          <Alert.Description maxWidth="sm">
-            Please check the URL and try again
-          </Alert.Description>
+        <Alert status="error">
+          <AlertIcon />
+          error 404 item not found
         </Alert>
       )}
     </div>
