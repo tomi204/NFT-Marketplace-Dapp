@@ -17,6 +17,7 @@ import {
   Tag,
   useDisclosure,
   Popover,
+  Alert,
 } from "@chakra-ui/react";
 import { Heading, Text } from "@chakra-ui/react";
 import styles from "./id.module.css";
@@ -139,7 +140,7 @@ const ItemID = () => {
                         >
                           <Popover arrowPadding={2}>
                             <PopoverTrigger>
-                              <TagLabel>Owner</TagLabel>
+                              <TagLabel>Address</TagLabel>
                             </PopoverTrigger>
                             <PopoverContent>
                               <PopoverArrow />
@@ -164,9 +165,23 @@ const ItemID = () => {
             })}
         </div>
       ) : (
-        <div>
-          <h1>404</h1>
-        </div>
+        <Alert
+          status="error"
+          variant="subtle"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          height="200px"
+        >
+          <Alert.Icon boxSize="40px" mr={0} />
+          <Alert.Title mt={4} mb={1} fontSize="lg">
+            This NFT does not exist
+          </Alert.Title>
+          <Alert.Description maxWidth="sm">
+            Please check the URL and try again
+          </Alert.Description>
+        </Alert>
       )}
     </div>
   );
