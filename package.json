@@ -17,6 +17,7 @@
     "@lighthouse-web3/sdk": "^0.1.12",
     "@openzeppelin/contracts": "^4.8.0",
     "@rainbow-me/rainbowkit": "^0.8.1",
+    "alchemy-sdk": "^2.6.2",
     "ethers": "^5.0.0",
     "framer-motion": "^8.0.2",
     "next": "^12.1.6",

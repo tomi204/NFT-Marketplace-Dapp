@@ -31,6 +31,7 @@ import {
 } from "@chakra-ui/react";
 import { parseEther } from "ethers/lib/utils.js";
 import { calcLength } from "framer-motion";
+import { Network, Alchemy } from "alchemy-sdk";
 const API = process.env.NEXT_PUBLIC_APIKEY;
 
 export const Sell = () => {
@@ -43,13 +44,33 @@ export const Sell = () => {
   const [desc, setDesc] = useState("");
   const [imageUpload, setImageUpload] = useState(false);
   const [ethPrice, setEthPrice] = useState(0);
+  const [nfts, setNfts] = useState([]);
+
   const getEthPrice = async () => {
     const response = await fetch("https://api.coinlore.net/api/ticker/?id=80");
     const data = await response.json(); // Extracting data as a JSON Object from the response
     const parseNumber1 = data[0].price_usd;
-
     setEthPrice(parseNumber1);
   };
+
+  const settings = {
+    apiKey: "EypKcb615zspS9zr3YpMF1zNodFvArmW",
+    network: Network.ETH_GOERLI,
+  }; // Alchemy settings
+
+  const alchemy = new Alchemy(settings); // alchemy object
+  async function getNftsForUser() {
+    const nftsResponse = await alchemy.nft
+      .getNftsForOwner(address)
+      .then((nfts) => {
+        setNfts(nfts);
+      });
+  }
+  useEffect(() => {
+    getNftsForUser();
+  }, []);
+
+  console.log(nfts, "nfts");
 
   useEffect(() => {
     getEthPrice();

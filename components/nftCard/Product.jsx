@@ -20,8 +20,8 @@ import { FaEthereum } from "react-icons/fa";
 import { GetAllItems } from "./../api/ListedTokens";
 import styles from "./product.module.css";
 import { Spinner } from "@chakra-ui/react";
-const Product = () => {
-  const { items, itemsFind, isLoading } = GetAllItems();
+const Product = (data) => {
+  const { isLoading } = GetAllItems();
   return (
     <div>
       {isLoading ? (
@@ -44,7 +44,7 @@ const Product = () => {
         </div>
       ) : (
         <div className={styles.mainCard}>
-          {itemsFind.map((item) => (
+          {data?.data?.map((item) => (
             <Card
               maxW="sm"
               key={item.id}

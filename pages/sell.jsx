@@ -5,9 +5,12 @@ import { useIsMounted } from "./../components/utils/mounted";
 import styles from "../styles/sell.module.css";
 import Footer from "./../components/footer/Footer";
 import MobileNav from "./../components/mobileNav/MobileNav";
+import { GetAllItems } from "../components/api/ListedTokens";
 
 const SellNFT = () => {
   const mounted = useIsMounted();
+  const { itemsFind, isLoading } = GetAllItems();
+
   return (
     <div className={styles.pageSell}>
       <Navbar />

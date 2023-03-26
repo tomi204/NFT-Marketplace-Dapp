@@ -5,14 +5,13 @@ import { BigNumber } from "ethers";
 
 const ApproveMarketplace = (NFT, tokenID) => {
   const { address, isConnected } = useAccount();
-  console.log("NFT", NFT.tokenID);
-  console.log("tokenID", tokenID);
+
   const { config } = usePrepareContractWrite({
     address: NFT.NFT,
     abi: erc721ABI,
     overrides: {
       from: address,
-      gasLimit: 10000000,
+      gasLimit: 10000,
     },
     functionName: "approve",
     args: ["0x88Ab79411cDc6A17cA1D8233A505FC4d41BC7f80", NFT.tokenID],
