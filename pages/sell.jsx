@@ -16,7 +16,7 @@ const SellNFT = () => {
       <Navbar />
       <MobileNav />
       {mounted ? <NFTCard /> : null}
-      <div className={styles.sellDiv}>{mounted ? <Sell /> : null}</div>
+      {/* <div className={styles.sellDiv}>{mounted ? <Sell /> : null}</div> */}
     </div>
   );
 };
