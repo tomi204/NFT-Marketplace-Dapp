@@ -11,16 +11,18 @@ import {
   InputLeftElement,
   InputGroup,
   InputRightElement,
+  CardHeader,
 } from "@chakra-ui/react";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { FaDollarSign, FaEthereum } from "react-icons/fa";
-import { GetAllItems } from "./../api/ListedTokens";
+import { GetAllItems } from "../api/ListedTokens";
 import styles from "./NFTCard.module.css";
 import { Spinner } from "@chakra-ui/react";
 import contractAdress from "../api/ContractAdress";
+import ApproveMarketplace from "../api/ApproveMarketplace";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
-const NFTCard = (data: any) => {
+const NFTCard = () => {
   const { address } = useAccount();
   const [price, setPrice] = useState("");
   const [sellModal, setSellModal] = useState(false);
@@ -48,6 +50,7 @@ const NFTCard = (data: any) => {
     chainId: 5,
     overrides: {
       from: address,
+      gasLimit: 1000000,
     },
     abi: [
       {
@@ -91,7 +94,7 @@ const NFTCard = (data: any) => {
     ],
     args: [
       item?.contract.address,
-      item?.tokenId,
+      parseInt(item?.tokenId),
       parsePrice(),
       item?.title,
       item?.description,
@@ -131,18 +134,34 @@ const NFTCard = (data: any) => {
         justifyItems={"center"}
         flexDirection={"column"}
       >
+        <CardHeader display={"flex"} flexDirection={"row"}>
+          <Button
+            onClick={() => setSellModal(false)}
+            colorScheme="blue"
+            variant="outline"
+            size="sm"
+            className={styles.button}
+            borderRadius="lg"
+            display={"flex"}
+            right={"0"}
+          >
+            X
+          </Button>
+        </CardHeader>
         <CardBody
           display={"flex"}
           flexDirection={"column"}
           justifyItems={"center"}
           alignItems={"center"}
           width={"50%"}
+          height={"30%"}
         >
           <img
             src={item?.rawMetadata.image}
             alt={item?.name}
             borderRadius="lg"
             width={"50%"}
+            height={"20%"}
             className={styles.imgCard}
           />
           <br />
@@ -214,7 +233,14 @@ const NFTCard = (data: any) => {
             </InputRightElement>
           </InputGroup>
           <br />
+          <ApproveMarketplace
+            NFT={item.contract.address}
+            tokenID={item.tokenId}
+          />
+
+          <br />
           <Button
+            isLoading={isLoading}
             colorScheme="blue"
             variant="solid"
             width={"50%"}
@@ -249,7 +275,7 @@ const NFTCard = (data: any) => {
         </div>
       ) : (
         <div className={styles.mainCard}>
-          {nfts?.map((item: any) => (
+          {nfts?.map((item) => (
             <Card
               maxW="sm"
               key={item.id}
