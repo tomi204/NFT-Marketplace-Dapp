@@ -6,7 +6,7 @@ import styles from "../styles/sell.module.css";
 import Footer from "./../components/footer/Footer";
 import MobileNav from "./../components/mobileNav/MobileNav";
 import { GetAllItems } from "../components/api/ListedTokens";
-
+import NFTCard from "../components/OwnedNFTCard/NFTCard";
 const SellNFT = () => {
   const mounted = useIsMounted();
   const { itemsFind, isLoading } = GetAllItems();
@@ -15,6 +15,7 @@ const SellNFT = () => {
     <div className={styles.pageSell}>
       <Navbar />
       <MobileNav />
+      {mounted ? <NFTCard /> : null}
       <div className={styles.sellDiv}>{mounted ? <Sell /> : null}</div>
     </div>
   );

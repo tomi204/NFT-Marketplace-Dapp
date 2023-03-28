@@ -1,0 +1,29 @@
+.mainCard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.eth {
+  margin-top: 3%;
+}
+.precio {
+  display: inline-flex;
+}
+@media screen and (max-width: 768px) {
+  .mainCard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 528px) {
+  .mainCard {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .precio {
+    font-size: small;
+  }
+}
+
+.imgCard {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+}

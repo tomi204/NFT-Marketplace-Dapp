@@ -1,17 +1,12 @@
 import React from "react";
-import {
-  erc721ABI,
-  goerli,
-  paginatedIndexesConfig,
-  useContractInfiniteReads,
-  useContractRead,
-} from "wagmi";
+import { paginatedIndexesConfig, useContractInfiniteReads } from "wagmi";
 import { BigNumber, ethers } from "ethers";
 import { useAccount } from "wagmi";
 import TokenURI from "./TokenURI.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMemo } from "react";
 import contractAdress from "./ContractAdress";
+import { Network, Alchemy } from "alchemy-sdk";
 const itemData = {};
 const mlootContractConfig = {
   address: "0x88Ab79411cDc6A17cA1D8233A505FC4d41BC7f80",
@@ -87,6 +82,7 @@ const mlootContractConfig = {
 };
 
 export function GetAllItems() {
+  const { address } = useAccount();
   const { data, fetchNextPage, isLoading } = useContractInfiniteReads({
     cacheKey: "mlootAttributes",
     ...paginatedIndexesConfig(
@@ -103,9 +99,32 @@ export function GetAllItems() {
     ),
   });
 
+  const [nfts, setNfts] = useState([]); // state for nfts
+
+  const settings = {
+    apiKey: "EypKcb615zspS9zr3YpMF1zNodFvArmW",
+    network: Network.ETH_GOERLI,
+  }; // Alchemy settings
+  const [loadingOwner, setLoadingOwner] = useState(true); // loading state for owner
+  const alchemy = new Alchemy(settings); // alchemy object
+  async function getNftsForUser() {
+    /// Get NFTs for user
+    const nftsResponse = await alchemy.nft
+      .getNftsForOwner(address)
+      .then((nfts) => {
+        setLoadingOwner(false);
+        setNfts(nfts);
+      });
+  }
+  useEffect(() => {
+    getNftsForUser();
+  }, []);
+  console.log(nfts, "nfts loloolol");
+
   //get items from data and return in a new array
   const result = data?.pages?.map((page) => {
     return page?.map((item) => {
+      console.log(item, "itemsx");
       if (!isLoading || item?.id != 0 || item?.id != null) {
         itemData = {
           id: item[0]?.toNumber(),
@@ -135,5 +154,7 @@ export function GetAllItems() {
     fetchNextPage,
     isLoading,
     itemsFind,
+    nfts,
+    loadingOwner,
   };
 }
