@@ -71,6 +71,11 @@ const ItemID = () => {
                       className={styles.imgNft}
                       src={nft.tokenURI}
                       alt={nft.desc}
+                      style={{
+                        width: "90%",
+                        height: "90%",
+                        borderRadius: "10px",
+                      }}
                     />
 
                     <div className={styles.cardContent}>
@@ -91,6 +96,7 @@ const ItemID = () => {
                           size={["sm", "md", "lg", "md"]}
                           fontSize={["sm", "sm", "lg", "2xl"]}
                           key={nft.price}
+                          padding={"1.5"}
                           variant="solid"
                           colorScheme="blue"
                           className={styles.tag__info}
@@ -108,6 +114,7 @@ const ItemID = () => {
                           size={["sm", "md", "lg", "md"]}
                           fontSize={["sm", "sm", "lg", "2xl"]}
                           key={nft.price}
+                          padding={"1.5"}
                           variant="solid"
                           colorScheme="blue"
                           className={styles.tag__info}
@@ -124,12 +131,13 @@ const ItemID = () => {
                         <Tag
                           size={["sm", "md", "lg", "md"]}
                           fontSize={["sm", "sm", "lg", "2xl"]}
+                          padding={"1.5"}
                           key={nft.id}
                           variant="solid"
                           colorScheme="blue"
                           className={styles.tag__info}
                         >
-                          Token ID: <b>{nft.tokenId}</b>
+                          ID: <b>{nft.tokenId}</b>
                         </Tag>
                         <Tag
                           size={["sm", "md", "lg", "md"]}
@@ -137,13 +145,16 @@ const ItemID = () => {
                           key={nft.nft}
                           variant="solid"
                           colorScheme="blue"
+                          padding={"1.5"}
                           cursor="pointer"
                           _hover={{ bg: "blue.900" }}
                           className={styles.tag__info}
                         >
                           <Popover arrowPadding={2}>
                             <PopoverTrigger>
-                              <TagLabel>Address</TagLabel>
+                              <TagLabel size={["sm", "md", "lg", "md"]}>
+                                Address
+                              </TagLabel>
                             </PopoverTrigger>
                             <PopoverContent>
                               <PopoverArrow />
