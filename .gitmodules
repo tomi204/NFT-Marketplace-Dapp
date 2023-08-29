@@ -4,7 +4,7 @@
 [submodule "lib\\openzeppelin-contracts"]
 	branch = v4.8.0
 [submodule "lib/openzeppelin-contracts"]
-	branch = v4.8.0
+	branch = v4.9.3
 [submodule "backend/hello_foundry/lib/forge-std"]
 	path = backend/hello_foundry/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
